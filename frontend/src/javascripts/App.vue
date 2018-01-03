@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Header from './components/header.vue'
 
   export default {
@@ -68,7 +69,7 @@ import Header from './components/header.vue'
       return {
         dialog: false,
         newCategory: '',
-        formHasErrors: false
+        formHasErrors: false,
       }
     },
     components: {
@@ -101,13 +102,9 @@ import Header from './components/header.vue'
         console.log(this.newCategory.length)
       }
     },
-    computed: {
-       logged_in() {
-        return this.$store.getters.isUserLoggedIn
-      },
-      categories() {
-        return this.$store.getters.getCategories
-      }
-    }
+    computed: mapGetters({
+      logged_in: 'isUserLoggedIn',
+      categories: 'getCurrentCategory'
+    })
   }
 </script>

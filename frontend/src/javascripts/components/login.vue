@@ -61,9 +61,10 @@
             </v-tooltip>
           </v-slide-x-reverse-transition>
           <v-btn 
-            color="primary" 
+            color="primary"
+            class="login"
             flat @click="login"
-          >Submit</v-btn>
+          >Login</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -72,6 +73,7 @@
 </template>
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
     data () {
@@ -127,10 +129,8 @@ export default {
         }
       }
     },
-    computed: {
-      errorMessage () {
-        return this.$store.getters.getError
-      }
-    }
+    computed: mapGetters({
+      errorMessage: 'getError'
+    })
   }
 </script>
