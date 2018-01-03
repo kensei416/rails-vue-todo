@@ -29,5 +29,6 @@ describe('App', () => {
   })
   it('works', () => {
     const wrapper = shallow(App, { store, localVue })
+    console.log(wrapper.$store.state.user)
   })
 })

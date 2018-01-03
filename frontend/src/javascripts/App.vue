@@ -7,7 +7,7 @@
         <v-card dark>
            <v-list two-line subheader>
           <v-subheader inset>Category</v-subheader>
-          <v-list-tile v-for="category in categories" v-bind:key="category.id" @click="SelectCategory(category.title)">
+          <v-list-tile v-for="category in categories" v-bind:key="category.id" @click="SelectCategory(category)">
             <v-list-tile-content>
               <v-list-tile-title>{{ category.title }}</v-list-tile-title>
             </v-list-tile-content>
@@ -104,7 +104,7 @@ import Header from './components/header.vue'
     },
     computed: mapGetters({
       logged_in: 'isUserLoggedIn',
-      categories: 'getCurrentCategory'
+      categories: 'getCategories'
     })
   }
 </script>

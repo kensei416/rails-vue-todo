@@ -18,9 +18,8 @@ export default new Vuex.Store({
   state: {
     token: null,
     user: null,
-    current_category: "Inbox",
+    current_category: { title: "Inbox", id: 1},
     isUserLoggedIn: false,
-    tasks: [],
     loading: false,
     errors: ''
   },
@@ -37,6 +36,7 @@ export default new Vuex.Store({
       state.user = user
       state.isUserLoggedIn = true
       state.errors = null
+      state.current_category = { title: 'Inbox', id: 1 }
     },
     setTasks (state, tasks) {
       state.tasks = tasks
@@ -48,9 +48,8 @@ export default new Vuex.Store({
     logoutUser (state, user) {
       state.user = null
       state.isUserLoggedIn = null
-      state.tasks = null
-      state.errors = ''
-      state.current_category = 'Inbox'
+      state.errors = null
+      state.current_category = null
     },
     setLoading (state, payload) {
       state.loading = payload
@@ -81,6 +80,10 @@ export default new Vuex.Store({
       state.route = root
     },
     setCurrentCategory(state, category) {
+      category = {
+        id: category.id,
+        title: category.title
+      }
       state.current_category = category
     },
     addCategory(state, category) {
@@ -224,10 +227,11 @@ export default new Vuex.Store({
         return state.user.categories
     },
     getTasks(state) {
-      return state.tasks
+      if (state.user)
+      return state.user.tasks
     },
     getCurrentCategory(state) {
-      return state.current_category
+      return state.current_category.title
     }
   }
 })
