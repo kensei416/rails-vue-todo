@@ -13474,12 +13474,17 @@ module.exports = Cancel;
   methods: {
     AddTask: function AddTask() {
       if (this.newTask) {
-        this.$store.dispatch('AddTask', this.newTask);
+        var task = {
+          title: this.newTask,
+          category_id: this.current_category.id
+        };
+        this.$store.dispatch('AddTask', task);
         this.newTask = null;
         this.dialog = false;
       }
     },
     updateTask: function updateTask(value) {
+      console.log(value);
       this.$store.dispatch('toggleTask', value);
     },
     formatDate: function formatDate(date) {
@@ -36439,7 +36444,7 @@ var render = function() {
     [
       _c("v-card-title", [
         _c("span", { staticClass: "headline" }, [
-          _vm._v(_vm._s(_vm.current_category))
+          _vm._v(_vm._s(_vm.current_category.title))
         ])
       ]),
       _vm._v(" "),
@@ -38237,6 +38242,13 @@ function remove(array, id) {
     return e.id !== id;
   });
 }
+function objKey(array, id) {
+  for (var key in array) {
+    if (array[key].id === id) {
+      return key;
+    }
+  }
+}
 
 
 
@@ -38272,7 +38284,7 @@ __WEBPACK_IMPORTED_MODULE_2_vue_dist_vue_esm_js__["a" /* default */].use(__WEBPA
       state.current_category = { title: 'Inbox', id: 1 };
     },
     setTasks: function setTasks(state, tasks) {
-      state.tasks = tasks;
+      state.user.tasks = tasks;
     },
     setErrors: function setErrors(state, errors) {
       console.log(errors.response.data.ErrorMesage);
@@ -38288,27 +38300,27 @@ __WEBPACK_IMPORTED_MODULE_2_vue_dist_vue_esm_js__["a" /* default */].use(__WEBPA
       state.loading = payload;
     },
     toggleTask: function toggleTask(state, obj) {
-      var id = Number(obj.id) - 1;
+      var id = objKey(state.user.tasks, obj.id);
       switch (obj.type) {
         case 'is_done':
-          state.tasks[id].is_done = !state.tasks[id].is_done;
+          state.user.tasks[id].is_done = !state.user.tasks[id].is_done;
           break;
         case 'fav':
-          state.tasks[id].fav = !state.tasks[id].fav;
+          state.user.tasks[id].fav = !state.user.tasks[id].fav;
           break;
       }
     },
     AddTask: function AddTask(state, payload) {
-      state.tasks.push({
-        id: state.tasks.length + 1,
-        title: payload,
-        is_done: false,
-        fav: false,
-        user_id: null
+      state.user.tasks.push({
+        id: payload.id,
+        title: payload.title,
+        is_done: payload.is_done,
+        fav: payload.fav,
+        category_id: payload.category_id
       });
+      console.log(state.user.tasks);
     },
     setRoot: function setRoot(state, root) {
-      console.log(root);
       state.route = root;
     },
     setCurrentCategory: function setCurrentCategory(state, category) {
@@ -38488,11 +38500,10 @@ __WEBPACK_IMPORTED_MODULE_2_vue_dist_vue_esm_js__["a" /* default */].use(__WEBPA
         var obj = response.data.tasks;
         for (var key in obj) {
           tasks.push({
-            id: Number(key) + 1,
+            id: obj[key].id,
             title: obj[key].title,
             is_done: obj[key].is_done,
-            fav: obj[key].fav,
-            user_id: null
+            fav: obj[key].fav
           });
         }
 
@@ -38501,16 +38512,18 @@ __WEBPACK_IMPORTED_MODULE_2_vue_dist_vue_esm_js__["a" /* default */].use(__WEBPA
       });
     },
     toggleTask: function toggleTask(_ref9, payload) {
-      var commit = _ref9.commit;
+      var commit = _ref9.commit,
+          state = _ref9.state;
 
+      var id = objKey(state.user.tasks, payload.id);
       if (payload.type === 'is_done') {
-        __WEBPACK_IMPORTED_MODULE_5_axios___default.a.put('/api/tasks/' + payload.id, { task: { is_done: !this.state.tasks[Number(payload.id) - 1].is_done } }).then(function (response) {
+        __WEBPACK_IMPORTED_MODULE_5_axios___default.a.put('/api/tasks/' + payload.id, { task: { is_done: !state.user.tasks[id].is_done } }).then(function (response) {
           commit('toggleTask', payload);
         }, function (error) {
           console.log(error);
         });
       } else {
-        __WEBPACK_IMPORTED_MODULE_5_axios___default.a.put('/api/tasks/' + payload.id, { task: { fav: !this.state.tasks[Number(payload.id) - 1].fav } }).then(function (response) {
+        __WEBPACK_IMPORTED_MODULE_5_axios___default.a.put('/api/tasks/' + payload.id, { task: { fav: !state.user.tasks[id].fav } }).then(function (response) {
           commit('toggleTask', payload);
         }, function (error) {
           console.log(error);
@@ -38523,8 +38536,8 @@ __WEBPACK_IMPORTED_MODULE_2_vue_dist_vue_esm_js__["a" /* default */].use(__WEBPA
 
       commit('setLoading', true);
       try {
-        __WEBPACK_IMPORTED_MODULE_5_axios___default.a.post('/api/users/' + state.user.id + '/tasks', { task: { title: payload, category_id: state.user.id } }).then(function (response) {
-          commit('AddTask', payload);
+        __WEBPACK_IMPORTED_MODULE_5_axios___default.a.post('/api/users/' + state.user.id + '/tasks', { task: { title: payload.title, category_id: payload.category_id } }).then(function (response) {
+          commit('AddTask', response.data.task);
           commit('setLoading', false);
         });
       } catch (error) {
@@ -38550,7 +38563,7 @@ __WEBPACK_IMPORTED_MODULE_2_vue_dist_vue_esm_js__["a" /* default */].use(__WEBPA
       if (state.user) return state.user.tasks;
     },
     getCurrentCategory: function getCurrentCategory(state) {
-      return state.current_category.title;
+      return state.current_category;
     }
   }
 }));

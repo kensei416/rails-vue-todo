@@ -1,7 +1,7 @@
 <template>
   <v-card height="800px">
     <v-card-title>
-      <span class="headline">{{ current_category }}</span>
+      <span class="headline">{{ current_category.title }}</span>
     </v-card-title>
     <v-card-actions>
       <v-layout row wrap v-show="dialog">
@@ -102,12 +102,17 @@ export default {
   methods: {
     AddTask() {
       if (this.newTask) {
-        this.$store.dispatch('AddTask', this.newTask)
+        const task = {
+          title: this.newTask,
+          category_id: this.current_category.id
+        }
+        this.$store.dispatch('AddTask', task)
         this.newTask = null
         this.dialog = false
       }
     },
     updateTask (value) {
+      console.log(value)
       this.$store.dispatch('toggleTask', value)
     },
     formatDate (date) {

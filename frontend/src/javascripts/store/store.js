@@ -1,7 +1,13 @@
 function remove(array, id) {
   return array.filter(e => e.id !== id);
 }
-
+function objKey (array, id) {
+  for (let key in array) {
+    if (array[key].id === id) {
+        return key
+    }
+  }
+}
 
 import Vue from 'vue/dist/vue.esm.js'
 import Vuex from 'vuex'
@@ -39,7 +45,7 @@ export default new Vuex.Store({
       state.current_category = { title: 'Inbox', id: 1 }
     },
     setTasks (state, tasks) {
-      state.tasks = tasks
+      state.user.tasks = tasks
     },
     setErrors (state, errors) {
       console.log(errors.response.data.ErrorMesage)
@@ -55,28 +61,28 @@ export default new Vuex.Store({
       state.loading = payload
     },
     toggleTask(state, obj) {
-      let id = Number(obj.id) - 1
+      let id = objKey(state.user.tasks, obj.id)
       switch (obj.type) {
         case 'is_done': 
-          state.tasks[id].is_done = !state.tasks[id].is_done
+          state.user.tasks[id].is_done = !state.user.tasks[id].is_done
           break
         case 'fav': 
-          state.tasks[id].fav = !state.tasks[id].fav
+          state.user.tasks[id].fav = !state.user.tasks[id].fav
           break
       }
       
     },
     AddTask(state, payload) {
-      state.tasks.push({
-        id: state.tasks.length+1,
-        title: payload,
-        is_done: false,
-        fav: false,
-        user_id: null
+      state.user.tasks.push({
+        id: payload.id,
+        title: payload.title,
+        is_done: payload.is_done,
+        fav: payload.fav,
+        category_id: payload.category_id
       })
+      console.log(state.user.tasks)
     },
     setRoot(state, root) {
-      console.log(root)
       state.route = root
     },
     setCurrentCategory(state, category) {
@@ -166,11 +172,10 @@ export default new Vuex.Store({
         const obj = response.data.tasks
         for (let key in obj) {
           tasks.push({
-            id: Number(key)+1,
+            id: obj[key].id,
             title: obj[key].title,
             is_done: obj[key].is_done,
             fav: obj[key].fav,
-            user_id: null
           })
         }
         
@@ -178,10 +183,11 @@ export default new Vuex.Store({
         commit('setLoading', false)
       })
     },
-    toggleTask({commit}, payload) {
+    toggleTask({commit, state}, payload) {
+        const id = objKey(state.user.tasks, payload.id)
         if (payload.type === 'is_done') {
           axios.put(`/api/tasks/${payload.id}`, 
-            { task: { is_done: !this.state.tasks[Number(payload.id)-1].is_done } })
+            { task: { is_done: !state.user.tasks[id].is_done } })
               .then((response) => {
                 commit('toggleTask', payload)
               }, (error) => {
@@ -189,7 +195,7 @@ export default new Vuex.Store({
               })
         } else {
           axios.put(`/api/tasks/${payload.id}`, 
-            { task: { fav: !this.state.tasks[Number(payload.id)-1].fav } })
+            { task: { fav: !state.user.tasks[id].fav } })
               .then((response) => {
               commit('toggleTask',payload)
             }, (error) => {
@@ -200,8 +206,11 @@ export default new Vuex.Store({
     AddTask({commit, state}, payload) {
       commit('setLoading', true)
       try {
-        axios.post(`/api/users/${state.user.id}/tasks`, { task: { title: payload, category_id: state.user.id }}).then((response) => {
-          commit('AddTask', payload)
+        axios.post(`/api/users/${state.user.id}/tasks`, 
+        { task: 
+          { title: payload.title, category_id: payload.category_id }})
+          .then((response) => {
+          commit('AddTask', response.data.task)
           commit('setLoading', false)
         })
       } catch (error) {
@@ -231,7 +240,7 @@ export default new Vuex.Store({
       return state.user.tasks
     },
     getCurrentCategory(state) {
-      return state.current_category.title
+      return state.current_category
     }
   }
 })
