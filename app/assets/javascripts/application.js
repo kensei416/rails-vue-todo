@@ -33225,13 +33225,13 @@ var render = function() {
                             {
                               directives: [
                                 {
-                                  name: "show",
-                                  rawName: "v-show",
+                                  name: "ahow",
+                                  rawName: "v-ahow",
                                   value: _vm.dialog === false,
                                   expression: "dialog===false"
                                 }
                               ],
-                              staticClass: "red--text",
+                              staticClass: "red--text open-dialog",
                               on: {
                                 click: function($event) {
                                   _vm.dialog = true

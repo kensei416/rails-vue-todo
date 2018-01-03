@@ -29,6 +29,9 @@ describe('App', () => {
   })
   it('works', () => {
     const wrapper = shallow(App, { store, localVue })
-    console.log(wrapper.$store.state.user)
+    const vm = wrapper.vm
+    expect(wrapper.contains('.open-dialog')).toBe(true)
+    vm.dialog = true
+    expect(wrapper.contains('.open-dialog')).toBe(false)
   })
 })
