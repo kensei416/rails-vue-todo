@@ -24,6 +24,7 @@
             v-model="newCategory"
             prepend-icon="create"
             ref="category"
+            class="input-category"
             @input="geLength"
             @keyup.enter="AddCategory"
             :rules="[()=> !!newCategory || 'This field is required']"
@@ -31,14 +32,14 @@
             </v-text-field>
           </v-list-tile>
           <v-list-tile v-show="dialog">
-            <v-btn dark @click="AddCategory" class="cyan accent-3"> 
+            <v-btn dark @click="AddCategory" class="cyan accent-3 add-category"> 
            　　 <v-icon dark>add</v-icon>AddCategory
           　</v-btn>
-            <v-btn light @click="CancelCategory">
+            <v-btn light @click="CancelCategory" class="cancel-category">
               Cancel
             </v-btn>
           </v-list-tile>
-          <v-list-tile @click="dialog=true" class="red--text open-dialog" v-ahow="dialog===false">
+          <v-list-tile @click="dialog=true" class="red--text open-dialog" v-show="dialog===false">
            <v-list-tile-action>
              <v-icon>add</v-icon>
            </v-list-tile-action>
@@ -79,7 +80,6 @@ import Header from './components/header.vue'
       AddCategory () {
         this.formHasErrors = false
         if (!this.newCategory) this.formHasErrors = true
-        this.$refs['category'].validate(true)
 
         if (!this.formHasErrors) {
           this.$store.dispatch('AddCategory', this.newCategory)
@@ -93,7 +93,6 @@ import Header from './components/header.vue'
       CancelCategory () {
         this.dialog = false
         this.newCategory = null
-        this.$refs['category'].reset()
       },
       SelectCategory(category) {
         this.$store.commit('setCurrentCategory', category)

@@ -13105,7 +13105,6 @@ if (false) {(function () {
     AddCategory: function AddCategory() {
       this.formHasErrors = false;
       if (!this.newCategory) this.formHasErrors = true;
-      this.$refs['category'].validate(true);
 
       if (!this.formHasErrors) {
         this.$store.dispatch('AddCategory', this.newCategory);
@@ -13119,7 +13118,6 @@ if (false) {(function () {
     CancelCategory: function CancelCategory() {
       this.dialog = false;
       this.newCategory = null;
-      this.$refs['category'].reset();
     },
     SelectCategory: function SelectCategory(category) {
       this.$store.commit('setCurrentCategory', category);
@@ -33137,6 +33135,7 @@ var render = function() {
                             [
                               _c("v-text-field", {
                                 ref: "category",
+                                staticClass: "input-category",
                                 attrs: {
                                   label: "Write Your Category",
                                   required: "",
@@ -33195,7 +33194,7 @@ var render = function() {
                               _c(
                                 "v-btn",
                                 {
-                                  staticClass: "cyan accent-3",
+                                  staticClass: "cyan accent-3 add-category",
                                   attrs: { dark: "" },
                                   on: { click: _vm.AddCategory }
                                 },
@@ -33211,6 +33210,7 @@ var render = function() {
                               _c(
                                 "v-btn",
                                 {
+                                  staticClass: "cancel-category",
                                   attrs: { light: "" },
                                   on: { click: _vm.CancelCategory }
                                 },
@@ -33225,8 +33225,8 @@ var render = function() {
                             {
                               directives: [
                                 {
-                                  name: "ahow",
-                                  rawName: "v-ahow",
+                                  name: "show",
+                                  rawName: "v-show",
                                   value: _vm.dialog === false,
                                   expression: "dialog===false"
                                 }

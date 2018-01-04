@@ -7,31 +7,57 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 describe('App', () => {
-  let state
   let actions
-  let getters
   let store
 
   beforeEach(() => {
     actions = {
-      actionClick: jest.fn(),
+      AddCategory: jest.fn(),
       actionInput: jest.fn(),
     }
-    getters = {
-      isUserLoggedIn: () => true,
-      getCurrentCategory: () => null
-    }
+    
     store = new Vuex.Store({
       state: {},
-      actions,
-      getters
+      actions
     })
   })
-  it('works', () => {
+  
+  it('open Dialog', () => {
     const wrapper = shallow(App, { store, localVue })
-    const vm = wrapper.vm
-    expect(wrapper.contains('.open-dialog')).toBe(true)
-    vm.dialog = true
-    expect(wrapper.contains('.open-dialog')).toBe(false)
+    const vm = wrapper.vm   
+    expect(wrapper.exists()).toBe(true)
+    const openDialog = wrapper.find('.open-dialog')
+    openDialog.trigger('click')
+    expect(vm.dialog).toBe(true)
+  })
+
+  it ('should be AddCategory input', () => {
+    const wrapper = shallow(App, { store, localVue })
+    const vm = wrapper.vm   
+    const Input = wrapper.find('.input-category')
+    const Add = wrapper.find('.add-category')
+    const cancel = wrapper.find('.cancel-category')
+    const openDialog = wrapper.find('.open-dialog')
+    expect(Input.exists()).toBe(true)
+    expect(Add.exists()).toBe(true)
+    expect(cancel.exists()).toBe(true) 
+    openDialog.trigger('click')
+
+    // valid value
+    vm.newCategory = 'Home'
+    Add.trigger('click')
+    expect(actions.AddCategory).toHaveBeenCalled()    
+    expect(vm.newCategory).toBe(null)
+
+    //  invalid value 
+    vm.newCategory = ""
+    Add.trigger('click')
+    expect(vm.formHasErrors).toBe(true)
+
+    // click cancel
+    vm.newCategory = 'foo'
+    expect(vm.newCategory).toBe('foo')
+    cancel.trigger('click')
+    expect(vm.newCategory).toBe(null)
   })
 })
