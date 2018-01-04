@@ -5,7 +5,7 @@
       <v-layout row wrap>
       <v-flex d-flex xs4 offset-xs2 md3>
         <v-card dark>
-           <v-list two-line subheader>
+           <v-list two-line subheader class="categories">
           <v-subheader inset>Category</v-subheader>
           <v-list-tile v-for="category in categories" v-bind:key="category.id" @click="SelectCategory(category)">
             <v-list-tile-content>

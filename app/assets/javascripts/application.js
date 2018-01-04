@@ -33058,7 +33058,10 @@ var render = function() {
                         [
                           _c(
                             "v-list",
-                            { attrs: { "two-line": "", subheader: "" } },
+                            {
+                              staticClass: "categories",
+                              attrs: { "two-line": "", subheader: "" }
+                            },
                             [
                               _c("v-subheader", { attrs: { inset: "" } }, [
                                 _vm._v("Category")

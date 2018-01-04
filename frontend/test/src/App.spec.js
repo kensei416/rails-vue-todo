@@ -20,16 +20,12 @@ describe('App', () => {
     // 変更後のgetters名ではなく変更前を使わないと上手く動作しない。
     getters = {
       isUserLoggedIn: () => true,
-      getCategories: () => { 
-        [
-          {
-          created_at:"2018-01-04T04:04:01.842Z",
-          id:25,
-          title:"ff",
-          updated_at:"2018-01-04T04:04:01.842Z"
-          }
-        ]
-      }
+      getCategories: () => [{
+        created_at:"2018-01-04T04:04:01.842Z",
+        id:25,
+        title:"ff",
+        updated_at:"2018-01-04T04:04:01.842Z"
+      }]
     }
     store = new Vuex.Store({
       state: {},
@@ -76,6 +72,14 @@ describe('App', () => {
     cancel.trigger('click')
     expect(vm.newCategory).toBe(null)
   })
-
+  
+  it ('should be exists categories', () => {
+    const wrapper = shallow(App, { store, localVue })
+    const vm = wrapper.vm   
+    const length = vm.$store.getters.getCategories.length
+    expect(vm.$store.getters.getCategories.length).toBe(1)
+    const categories = wrapper.find('.categories')
+    expect(categories.findAll('v-list-tile').length).toBe(length + 3)
+  }) 
 
 })
