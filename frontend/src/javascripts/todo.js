@@ -5,6 +5,8 @@ import App from './App'
 import Router from './router/router'
 import store from './store/store'
 import { sync } from 'vuex-router-sync'
+import axios from 'axios'
+import Cookies from 'js-cookie';
 
 
 
@@ -22,7 +24,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
     store: store,
     render: h => h(App),
     created() {
-      this.$store.dispatch('LoadTasks')  
+      if (Cookies.get()) {
+        axios.get('/api/sessions').then((response) => {
+          this.$store.dispatch('setUser',response.data)
+        })
+      } else {
+        this.navigateTo('/login')
+      }
     },
     methods: {
       navigateTo (root) {
