@@ -1,7 +1,7 @@
 import { shallow, createLocalVue } from 'vue-test-utils'
 import Vuex from 'vuex'
-import App from '../../src/javascripts/App.vue'
-
+import App from '../../../src/javascripts/App.vue'
+import store from '../../../src/javascripts/store/store.js'
 const localVue = createLocalVue()
 
 localVue.use(Vuex)
@@ -76,10 +76,10 @@ describe('App', () => {
   it ('should be exists categories', () => {
     const wrapper = shallow(App, { store, localVue })
     const vm = wrapper.vm   
-    const length = vm.$store.getters.getCategories.length
+    const Add = wrapper.find('.add-category')
     expect(vm.$store.getters.getCategories.length).toBe(1)
     const categories = wrapper.find('.categories')
-    expect(categories.findAll('v-list-tile').length).toBe(length + 3)
+    expect(categories.findAll('v-list-tile').length).toBe(4)    
   }) 
 
 })

@@ -9,17 +9,25 @@ function objKey (array, id) {
   }
 }
 
-import Vue from 'vue/dist/vue.esm.js'
+import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
 import axios from 'axios'
+import Cookies from 'js-cookie';
+
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   strict: true,
   plugins: [
-    createPersistedState()
+    createPersistedState({
+      storage: {
+        getItem: key => Cookies.get(key),
+        setItem: (key, value) => Cookies.set(key, value, { expires: 3, secure: true }),
+        removeItem: key => Cookies.remove(key)
+      }
+    })
   ],
   state: {
     token: null,
