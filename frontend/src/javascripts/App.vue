@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <toolbar/>
-    <v-container fluid grid-list-md v-show="logged_in">
+    <v-container fluid grid-list-md v-if="logged_in">
       <v-layout row wrap>
       <v-flex d-flex xs4 offset-xs2 md3>
         <v-card dark>

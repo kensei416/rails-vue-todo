@@ -8,6 +8,7 @@ localVue.use(Vuex)
 
 describe('App', () => {
   let actions
+  let getters
   let store
 
   beforeEach(() => {
@@ -16,9 +17,24 @@ describe('App', () => {
       actionInput: jest.fn(),
     }
     
+    // 変更後のgetters名ではなく変更前を使わないと上手く動作しない。
+    getters = {
+      isUserLoggedIn: () => true,
+      getCategories: () => { 
+        [
+          {
+          created_at:"2018-01-04T04:04:01.842Z",
+          id:25,
+          title:"ff",
+          updated_at:"2018-01-04T04:04:01.842Z"
+          }
+        ]
+      }
+    }
     store = new Vuex.Store({
       state: {},
-      actions
+      actions,
+      getters
     })
   })
   
@@ -60,4 +76,6 @@ describe('App', () => {
     cancel.trigger('click')
     expect(vm.newCategory).toBe(null)
   })
+
+
 })

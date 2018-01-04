@@ -33032,82 +33032,85 @@ var render = function() {
     [
       _c("toolbar"),
       _vm._v(" "),
-      _c(
-        "v-container",
-        {
-          directives: [
-            {
-              name: "show",
-              rawName: "v-show",
-              value: _vm.logged_in,
-              expression: "logged_in"
-            }
-          ],
-          attrs: { fluid: "", "grid-list-md": "" }
-        },
-        [
-          _c(
-            "v-layout",
-            { attrs: { row: "", wrap: "" } },
+      _vm.logged_in
+        ? _c(
+            "v-container",
+            { attrs: { fluid: "", "grid-list-md": "" } },
             [
               _c(
-                "v-flex",
-                { attrs: { "d-flex": "", xs4: "", "offset-xs2": "", md3: "" } },
+                "v-layout",
+                { attrs: { row: "", wrap: "" } },
                 [
                   _c(
-                    "v-card",
-                    { attrs: { dark: "" } },
+                    "v-flex",
+                    {
+                      attrs: {
+                        "d-flex": "",
+                        xs4: "",
+                        "offset-xs2": "",
+                        md3: ""
+                      }
+                    },
                     [
                       _c(
-                        "v-list",
-                        { attrs: { "two-line": "", subheader: "" } },
+                        "v-card",
+                        { attrs: { dark: "" } },
                         [
-                          _c("v-subheader", { attrs: { inset: "" } }, [
-                            _vm._v("Category")
-                          ]),
-                          _vm._v(" "),
-                          _vm._l(_vm.categories, function(category) {
-                            return _c(
-                              "v-list-tile",
-                              {
-                                key: category.id,
-                                on: {
-                                  click: function($event) {
-                                    _vm.SelectCategory(category)
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "v-list-tile-content",
-                                  [
-                                    _c("v-list-tile-title", [
-                                      _vm._v(_vm._s(category.title))
-                                    ])
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "v-list-tile-action",
+                          _c(
+                            "v-list",
+                            { attrs: { "two-line": "", subheader: "" } },
+                            [
+                              _c("v-subheader", { attrs: { inset: "" } }, [
+                                _vm._v("Category")
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.categories, function(category) {
+                                return _c(
+                                  "v-list-tile",
+                                  {
+                                    key: category.id,
+                                    on: {
+                                      click: function($event) {
+                                        _vm.SelectCategory(category)
+                                      }
+                                    }
+                                  },
                                   [
                                     _c(
-                                      "v-btn",
-                                      {
-                                        attrs: { icon: "", ripple: "" },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.DeleteCategory(category.id)
-                                          }
-                                        }
-                                      },
+                                      "v-list-tile-content",
+                                      [
+                                        _c("v-list-tile-title", [
+                                          _vm._v(_vm._s(category.title))
+                                        ])
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-list-tile-action",
                                       [
                                         _c(
-                                          "v-icon",
+                                          "v-btn",
                                           {
-                                            attrs: { color: "grey lighten-1" }
+                                            attrs: { icon: "", ripple: "" },
+                                            on: {
+                                              click: function($event) {
+                                                _vm.DeleteCategory(category.id)
+                                              }
+                                            }
                                           },
-                                          [_vm._v("settings")]
+                                          [
+                                            _c(
+                                              "v-icon",
+                                              {
+                                                attrs: {
+                                                  color: "grey lighten-1"
+                                                }
+                                              },
+                                              [_vm._v("settings")]
+                                            )
+                                          ],
+                                          1
                                         )
                                       ],
                                       1
@@ -33115,170 +33118,168 @@ var render = function() {
                                   ],
                                   1
                                 )
-                              ],
-                              1
-                            )
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-tile",
-                            {
-                              directives: [
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-list-tile",
                                 {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.dialog,
-                                  expression: "dialog"
-                                }
-                              ]
-                            },
-                            [
-                              _c("v-text-field", {
-                                ref: "category",
-                                staticClass: "input-category",
-                                attrs: {
-                                  label: "Write Your Category",
-                                  required: "",
-                                  "prepend-icon": "create",
-                                  rules: [
-                                    function() {
-                                      return (
-                                        !!_vm.newCategory ||
-                                        "This field is required"
-                                      )
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.dialog,
+                                      expression: "dialog"
                                     }
                                   ]
                                 },
-                                on: {
-                                  input: _vm.geLength,
-                                  keyup: function($event) {
-                                    if (
-                                      !("button" in $event) &&
-                                      _vm._k(
-                                        $event.keyCode,
-                                        "enter",
-                                        13,
-                                        $event.key
-                                      )
-                                    ) {
-                                      return null
+                                [
+                                  _c("v-text-field", {
+                                    ref: "category",
+                                    staticClass: "input-category",
+                                    attrs: {
+                                      label: "Write Your Category",
+                                      required: "",
+                                      "prepend-icon": "create",
+                                      rules: [
+                                        function() {
+                                          return (
+                                            !!_vm.newCategory ||
+                                            "This field is required"
+                                          )
+                                        }
+                                      ]
+                                    },
+                                    on: {
+                                      input: _vm.geLength,
+                                      keyup: function($event) {
+                                        if (
+                                          !("button" in $event) &&
+                                          _vm._k(
+                                            $event.keyCode,
+                                            "enter",
+                                            13,
+                                            $event.key
+                                          )
+                                        ) {
+                                          return null
+                                        }
+                                        _vm.AddCategory($event)
+                                      }
+                                    },
+                                    model: {
+                                      value: _vm.newCategory,
+                                      callback: function($$v) {
+                                        _vm.newCategory = $$v
+                                      },
+                                      expression: "newCategory"
                                     }
-                                    _vm.AddCategory($event)
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-list-tile",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.dialog,
+                                      expression: "dialog"
+                                    }
+                                  ]
+                                },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      staticClass: "cyan accent-3 add-category",
+                                      attrs: { dark: "" },
+                                      on: { click: _vm.AddCategory }
+                                    },
+                                    [
+                                      _c("v-icon", { attrs: { dark: "" } }, [
+                                        _vm._v("add")
+                                      ]),
+                                      _vm._v("AddCategory\n        　")
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      staticClass: "cancel-category",
+                                      attrs: { light: "" },
+                                      on: { click: _vm.CancelCategory }
+                                    },
+                                    [_vm._v("\n            Cancel\n          ")]
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-list-tile",
+                                {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: _vm.dialog === false,
+                                      expression: "dialog===false"
+                                    }
+                                  ],
+                                  staticClass: "red--text open-dialog",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.dialog = true
+                                    }
                                   }
                                 },
-                                model: {
-                                  value: _vm.newCategory,
-                                  callback: function($$v) {
-                                    _vm.newCategory = $$v
-                                  },
-                                  expression: "newCategory"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-tile",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.dialog,
-                                  expression: "dialog"
-                                }
-                              ]
-                            },
-                            [
-                              _c(
-                                "v-btn",
-                                {
-                                  staticClass: "cyan accent-3 add-category",
-                                  attrs: { dark: "" },
-                                  on: { click: _vm.AddCategory }
-                                },
                                 [
-                                  _c("v-icon", { attrs: { dark: "" } }, [
-                                    _vm._v("add")
-                                  ]),
-                                  _vm._v("AddCategory\n        　")
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  staticClass: "cancel-category",
-                                  attrs: { light: "" },
-                                  on: { click: _vm.CancelCategory }
-                                },
-                                [_vm._v("\n            Cancel\n          ")]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-tile",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.dialog === false,
-                                  expression: "dialog===false"
-                                }
-                              ],
-                              staticClass: "red--text open-dialog",
-                              on: {
-                                click: function($event) {
-                                  _vm.dialog = true
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "v-list-tile-action",
-                                [_c("v-icon", [_vm._v("add")])],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-list-tile-content",
-                                [
-                                  _c("v-list-tile-title", [
-                                    _vm._v("Add Category")
-                                  ])
+                                  _c(
+                                    "v-list-tile-action",
+                                    [_c("v-icon", [_vm._v("add")])],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-tile-content",
+                                    [
+                                      _c("v-list-tile-title", [
+                                        _vm._v("Add Category")
+                                      ])
+                                    ],
+                                    1
+                                  )
                                 ],
                                 1
                               )
                             ],
-                            1
+                            2
                           )
                         ],
-                        2
+                        1
                       )
                     ],
                     1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-flex",
+                    { attrs: { "d-flex": "", xs8: "", sm8: "", md6: "" } },
+                    [_c("router-view")],
+                    1
                   )
                 ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-flex",
-                { attrs: { "d-flex": "", xs8: "", sm8: "", md6: "" } },
-                [_c("router-view")],
                 1
               )
             ],
             1
           )
-        ],
-        1
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "main",
