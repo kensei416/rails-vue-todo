@@ -10,9 +10,10 @@ gem 'rails', '~> 5.1.4'
 gem 'bcrypt'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
+gem 'uglifier'
 gem 'coffee-rails', '~> 4.2'
-gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+
 
 
 group :test do
@@ -40,5 +41,4 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
-
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
