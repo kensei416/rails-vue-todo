@@ -1,7 +1,7 @@
 import { shallow, createLocalVue } from 'vue-test-utils'
 import Vuex from 'vuex'
 import Login from '../../../src/javascripts/components/login.vue'
-import module from '../../../src/javascripts/store/store.js'
+import module from '../store/store_test'
 const localVue = createLocalVue()
 
 
@@ -11,55 +11,55 @@ describe('Modules.vue', () => {
   let actions
   let store
   let getters
-
+  let state
   beforeEach(() =>{
-    getters = {
-      getError: () => 'Your email/password invalid'
+    state = {
+      user: null,
+      isUserLoggedIn: false
     }
 
     actions = {
       loginUser: jest.fn()
     }
+
     store = new Vuex.Store({
+      state,
       actions,
-      getters
+      getters: module.getters
     })
   })
 
   it ('Invalid data should be error', () => {
     const wrapper = shallow(Login, { store, localVue })
     const vm = wrapper.vm
-    const button = wrapper.find('.login')
+    const login = wrapper.find('.login')
 
-    expect(button.exists()).toBe(true)
-    expect(wrapper.find('.reset').exists()).toBe(false)    
-    button.trigger('click')
+    // #empty email, password
+    login.trigger('click')
     expect(vm.FormHasErrors).toBe(true)
-    const reset = wrapper.find('.reset')
-    expect(reset.exists()).toBe(true)
-    // $refsが動かない。
-    // reset.trigger('click')
-    // expect(vm.FormHasErrors).toBe(false)
+
+    // #empty email
+    vm.form.password ="foobar"
+    login.trigger('click')
+    expect(vm.FormHasErrors).toBe(true)
+
+    // #password empty
+    vm.form.email = "kensei416@gmail.com"
+    vm.form.password = ""
+    login.trigger('click')
+    expect(vm.FormHasErrors).toBe(true)
   })
 
-  it ('Valid data should login', () => {
+  it ('Valid data should be logged_in', () => {
     const wrapper = shallow(Login, { store, localVue })
     const vm = wrapper.vm
-    const button = wrapper.find('.login')
-    vm.form.email = 'kensei416@gmail.com'
-    vm.form.password = 'foobar'
-    button.trigger('click')
+    const login = wrapper.find('.login')
+    vm.form.email = "kensei416@gmail.com"
+    vm.form.password ="foobar"
+    login.trigger('click')
     expect(vm.FormHasErrors).toBe(false)
     expect(actions.loginUser).toHaveBeenCalled()
-    expect(actions.loginUser.mock.calls).toHaveLength(1)
-    expect(actions.loginUser.mock.calls[0][1].email).toEqual("kensei416@gmail.com")
-    expect(actions.loginUser.mock.calls[0][1].password).toEqual("foobar")
-    expect(actions.loginUser.mock.calls[0][1].remember_me).toEqual("0")
   })
 
-  it ('Getters should be return Error message', () => {
-    const wrapper = shallow(Login, { store, localVue })
-    const vm = wrapper.vm
-    expect(wrapper.find('.error-message').text().trim()).toEqual('Your email/password invalid')
-  })
+
 })

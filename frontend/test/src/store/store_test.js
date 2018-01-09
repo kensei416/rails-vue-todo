@@ -11,25 +11,15 @@ function objKey (array, id) {
 
 import Vue from 'vue'
 import Vuex from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
 import axios from 'axios'
 import Cookies from 'js-cookie';
 
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-  strict: true,
-  plugins: [
-    createPersistedState({
-      storage: {
-        getItem: key => Cookies.get(key),
-        setItem: (key, value) => Cookies.set(key, value, { expires: 3, secure: true }),
-        removeItem: key => Cookies.remove(key)
-      }
-    })
-  ],
+export default {
   state: {
+    token: null,
     user: null,
     current_category: { title: "Inbox", id: 1},
     isUserLoggedIn: false,
@@ -250,5 +240,4 @@ export default new Vuex.Store({
       return state.current_category
     }
   }
-})
-
+}

@@ -13868,6 +13868,9 @@ module.exports = function (KEY, exec) {
           password: this.form.password,
           remember_me: String(this.remember_me)
         });
+        this.form.email = null;
+        this.form.password = null;
+        this.remember_me = 0;
       }
     }
   },
@@ -38467,7 +38470,6 @@ __WEBPACK_IMPORTED_MODULE_2_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
     }
   })],
   state: {
-    token: null,
     user: null,
     current_category: { title: "Inbox", id: 1 },
     isUserLoggedIn: false,
