@@ -2,7 +2,7 @@
   "name": "todo_sample",
   "private": true,
   "scripts": {
-    "build": "webpack --config ./config/dev/webpack.config.js",
+    "build": "webpack --config ./frontend/config/dev/webpack.config.js",
     "test": "jest"
   },
   "dependencies": {
