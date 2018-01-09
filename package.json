@@ -60,6 +60,7 @@
     "snapshotSerializers": [
       "<rootDir>/node_modules/jest-serializer-vue"
     ],
-    "mapCoverage": true
+    "mapCoverage": true,
+    "testMatch": ["**/__tests__/**/*.js?(x)", "**/?(*.)(spec).js?(x)"]
   }
 }
