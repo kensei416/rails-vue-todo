@@ -31536,8 +31536,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../../css-loader/index.js??ref--2-1!./vuetify.css", function() {
-			var newContent = require("!!../../css-loader/index.js??ref--2-1!./vuetify.css");
+		module.hot.accept("!!../../../../node_modules/css-loader/index.js??ref--2-1!./vuetify.css", function() {
+			var newContent = require("!!../../../../node_modules/css-loader/index.js??ref--2-1!./vuetify.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
