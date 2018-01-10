@@ -11,7 +11,9 @@ class Api::CategoriesController < ApplicationController
   end
 
   def destroy
-    @category.destroy
+    if !@category.fixed 
+      @category.destroy
+    end
   end
 
   private

@@ -1,11 +1,12 @@
 var webpack = require('webpack')
 var path = require('path')
+const dir_name = "/Users/kensei/program/ruby/todo-app-v2/app"
 module.exports = {
   entry: {
-    application: './frontend/src/javascripts/todo.js',
+    application: './src/javascripts/todo.js',
   },
   output: {
-    path: path.join(process.cwd(), '/app/assets/javascripts'),
+    path: path.join(dir_name, '/app/assets/javascripts'),
     filename: '[name].js'
   },
   module: {
@@ -37,5 +38,4 @@ module.exports = {
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
-  devtool: 'inline-source-map'
 }

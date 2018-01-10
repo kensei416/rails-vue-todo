@@ -3,6 +3,7 @@ user = User.create!(user_id:  "kensei416",
         password:              "foobar",
         password_confirmation: "foobar")
 
+user.categories.create!(title: 'Inbox', user_id: user.id, fixed: true)
 
 10.times do
   task = Faker::GameOfThrones.city

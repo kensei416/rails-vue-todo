@@ -19,6 +19,6 @@ Rails.application.routes.draw do
         resources :tasks, only: [:index, :create, :update], shallow: true        
       end
     end   
-    resources :sessions
+    resources :sessions, only: [:index, :create, :update, :destroy]
   end
 end

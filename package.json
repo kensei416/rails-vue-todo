@@ -2,7 +2,7 @@
   "name": "todo_sample",
   "private": true,
   "scripts": {
-    "build": "webpack --config ./config/dev/webpack.config.js",
+    "build": "webpack --config ./frontend/config/dev/webpack.config.js",
     "test": "jest"
   },
   "dependencies": {
@@ -26,6 +26,7 @@
     "function-bind": "^1.1.0",
     "jest": "^22.0.4",
     "jest-serializer-vue": "^0.3.0",
+    "js-cookie": "^2.2.0",
     "karma": "^1.3.0",
     "karma-mocha": "^1.2.0",
     "karma-phantomjs-launcher": "^1.0.2",
@@ -37,6 +38,7 @@
     "vue-jest": "^1.4.0",
     "vue-loader": "^13.6.2",
     "vue-router": "^3.0.1",
+    "vue-server-renderer": "^2.5.13",
     "vue-template-compiler": "^2.5.11",
     "vue-test-utils": "^1.0.0-beta.9",
     "vuetify": "^0.17.5",
@@ -59,6 +61,10 @@
     "snapshotSerializers": [
       "<rootDir>/node_modules/jest-serializer-vue"
     ],
-    "mapCoverage": true
+    "mapCoverage": true,
+    "testMatch": [
+      "**/__tests__/**/*.js?(x)",
+      "**/?(*.)(spec).js?(x)"
+    ]
   }
 }

@@ -192,7 +192,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt
   byebug
-  capybara (~> 2.13)
+  capybara
   coffee-rails (~> 4.2)
   faker
   foreman
@@ -207,6 +207,7 @@ DEPENDENCIES
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
+  sprockets
   sqlite3
   turbolinks (~> 5)
   tzinfo-data

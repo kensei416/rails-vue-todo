@@ -1,7 +1,7 @@
 <template>
   <v-card height="800px">
-    <v-card-title>
-      <span class="headline">{{ current_category }}</span>
+    <v-card-title v-if="current_category">
+      <span class="headline">{{ current_category.title }}</span>
     </v-card-title>
     <v-card-actions>
       <v-layout row wrap v-show="dialog">
@@ -57,12 +57,12 @@
         </v-flex>
       </v-layout>
     </v-card-actions>
-    <v-btn flat light @click="dialog=!dialog" v-show="dialog===false"> 
+    <v-btn flat light @click="dialog=!dialog" v-show="dialog===false" v-if="current_category"> 
       <v-icon dark>add</v-icon>AddTask
     </v-btn>
-    <v-list three-line>
+    <v-list three-line v-if="current_category">
       <template v-for="task in tasks">
-        <v-list-tile avatar v-bind:key="task.id" v-show="task.is_done===false">
+        <v-list-tile avatar v-bind:key="task.id" v-show="task.is_done===false" v-if="current_category.id === task.category_id">
           <v-list-tile-action>
             <v-btn flat icon @click="updateTask({type: 'is_done', id: task.id})">
               <v-icon>check_box_outline_blank</v-icon>
@@ -102,12 +102,17 @@ export default {
   methods: {
     AddTask() {
       if (this.newTask) {
-        this.$store.dispatch('AddTask', this.newTask)
+        const task = {
+          title: this.newTask,
+          category_id: this.current_category.id
+        }
+        this.$store.dispatch('AddTask', task)
         this.newTask = null
         this.dialog = false
       }
     },
     updateTask (value) {
+      console.log(value)
       this.$store.dispatch('toggleTask', value)
     },
     formatDate (date) {
@@ -135,7 +140,6 @@ export default {
   },
   computed: {
     tasks () {
-      console.log(this.$store.getters.getTasks)
       return this.$store.getters.getTasks
     },
     current_category () {

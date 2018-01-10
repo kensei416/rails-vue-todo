@@ -1,18 +1,18 @@
 <template>
   <v-app>
     <toolbar/>
-    <v-container fluid grid-list-md v-show="logged_in">
+    <v-container fluid grid-list-md v-if="logged_in">
       <v-layout row wrap>
       <v-flex d-flex xs4 offset-xs2 md3>
         <v-card dark>
-           <v-list two-line subheader>
+           <v-list two-line subheader class="categories">
           <v-subheader inset>Category</v-subheader>
-          <v-list-tile v-for="category in categories" v-bind:key="category.id" @click="SelectCategory(category.title)">
+          <v-list-tile v-for="category in categories" v-bind:key="category.id" @click="SelectCategory(category)">
             <v-list-tile-content>
               <v-list-tile-title>{{ category.title }}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn icon ripple @click="DeleteCategory(category.id)">
+              <v-btn icon ripple @click.stop="DeleteCategory(category.id)" v-if="!category.fixed">
                 <v-icon color="grey lighten-1">settings</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -24,6 +24,7 @@
             v-model="newCategory"
             prepend-icon="create"
             ref="category"
+            class="input-category"
             @input="geLength"
             @keyup.enter="AddCategory"
             :rules="[()=> !!newCategory || 'This field is required']"
@@ -31,14 +32,14 @@
             </v-text-field>
           </v-list-tile>
           <v-list-tile v-show="dialog">
-            <v-btn dark @click="AddCategory" class="cyan accent-3"> 
+            <v-btn dark @click="AddCategory" class="cyan accent-3 add-category"> 
            　　 <v-icon dark>add</v-icon>AddCategory
           　</v-btn>
-            <v-btn light @click="CancelCategory">
+            <v-btn light @click="CancelCategory" class="cancel-category">
               Cancel
             </v-btn>
           </v-list-tile>
-          <v-list-tile @click="dialog=true" class="red--text" v-show="dialog===false">
+          <v-list-tile @click="dialog=true" class="red--text open-dialog" v-show="dialog===false">
            <v-list-tile-action>
              <v-icon>add</v-icon>
            </v-list-tile-action>
@@ -79,7 +80,6 @@ import Header from './components/header.vue'
       AddCategory () {
         this.formHasErrors = false
         if (!this.newCategory) this.formHasErrors = true
-        this.$refs['category'].validate(true)
 
         if (!this.formHasErrors) {
           this.$store.dispatch('AddCategory', this.newCategory)
@@ -93,7 +93,6 @@ import Header from './components/header.vue'
       CancelCategory () {
         this.dialog = false
         this.newCategory = null
-        this.$refs['category'].reset()
       },
       SelectCategory(category) {
         this.$store.commit('setCurrentCategory', category)
@@ -104,7 +103,9 @@ import Header from './components/header.vue'
     },
     computed: mapGetters({
       logged_in: 'isUserLoggedIn',
-      categories: 'getCurrentCategory'
+      categories: 'getCategories'
     })
   }
 </script>
+
+

@@ -3,7 +3,7 @@
    <v-layout justify-center>
     <v-flex xs12 sm10 md8 lg6>
       <v-card ref="form">
-        <v-alert color="error" :value="!!errorMessage">
+        <v-alert color="error" :value="!!errorMessage" class="error-message">
          <h1>{{ errorMessage }}</h1>
         </v-alert>
         <v-card-title>
@@ -53,7 +53,7 @@
                 icon
                 @click="resetForm"
                 slot="activator"
-                class="my-0"
+                class="my-0 reset"
               >
                 <v-icon>refresh</v-icon>
               </v-btn>
@@ -112,13 +112,6 @@ export default {
         Object.keys(this.form).forEach(f => {
           if (!this.form[f]) this.FormHasErrors = true
         })
-        console.log(
-          {
-            email: this.form.email,
-            password: this.form.password, 
-            remember_me: String(this.remember_me)
-          }
-        )
         if (!this.FormHasErrors) {
           this.$store.dispatch('loginUser', 
           {

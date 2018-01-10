@@ -1,10 +1,10 @@
 class Api::TasksController < ApplicationController
   before_action :logged_in_user, only: [:create, :update, :destroy]
   
-  def index
-    @tasks = Task.all
+  def index 
+    @tasks = current_user.tasks
   end
-
+  
   def create
     @task = Task.new(task_params)
     
@@ -25,11 +25,11 @@ class Api::TasksController < ApplicationController
   end
 
 
-    private
+  private
       
     def task_params
-    params.fetch(:task, {}).permit(
-        :title, :category_id, :is_done, :fav
-    )
-  end
+      params.fetch(:task, {}).permit(
+          :title, :category_id, :is_done, :fav
+      )
+    end
 end
