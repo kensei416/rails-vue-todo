@@ -37,4 +37,5 @@ module.exports = {
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
+  devtool: 'inline-source-map'
 }

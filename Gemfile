@@ -13,6 +13,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
+gem 'sprockets'
 
 
 group :test do
@@ -40,5 +41,4 @@ group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
-
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
