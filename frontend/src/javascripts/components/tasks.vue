@@ -1,6 +1,6 @@
 <template>
   <v-card height="800px">
-    <v-card-title>
+    <v-card-title v-if="current_category">
       <span class="headline">{{ current_category.title }}</span>
     </v-card-title>
     <v-card-actions>
@@ -57,12 +57,12 @@
         </v-flex>
       </v-layout>
     </v-card-actions>
-    <v-btn flat light @click="dialog=!dialog" v-show="dialog===false"> 
+    <v-btn flat light @click="dialog=!dialog" v-show="dialog===false" v-if="current_category"> 
       <v-icon dark>add</v-icon>AddTask
     </v-btn>
-    <v-list three-line>
+    <v-list three-line v-if="current_category">
       <template v-for="task in tasks">
-        <v-list-tile avatar v-bind:key="task.id" v-show="task.is_done===false">
+        <v-list-tile avatar v-bind:key="task.id" v-show="task.is_done===false" v-if="current_category.id === task.category_id">
           <v-list-tile-action>
             <v-btn flat icon @click="updateTask({type: 'is_done', id: task.id})">
               <v-icon>check_box_outline_blank</v-icon>

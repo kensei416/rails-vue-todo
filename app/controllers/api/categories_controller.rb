@@ -11,7 +11,7 @@ class Api::CategoriesController < ApplicationController
   end
 
   def destroy
-    if !@category.freezing 
+    if !@category.fixed 
       @category.destroy
     end
   end

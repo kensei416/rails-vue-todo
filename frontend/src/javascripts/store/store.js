@@ -1,5 +1,5 @@
-function remove(array, id) {
-  return array.filter(e => e.id !== id);
+function remove(array, id, type) {
+  return array.filter(e => e[type] !== id);
 }
 function objKey (array, id) {
   for (let key in array) {
@@ -89,7 +89,7 @@ export default new Vuex.Store({
       })
     },
     deleteTasks(state, id) {
-      state.user.tasks
+      state.user.tasks = remove(state.user.tasks, id, 'category_id')
     },
     setRoot(state, root) {
       state.route = root
@@ -105,7 +105,13 @@ export default new Vuex.Store({
       state.user.categories.push(category)
     },
     deleteCategory (state, id) {
-      state.user.categories = remove(state.user.categories, id)
+      state.user.categories = remove(state.user.categories, id, 'id')
+      console.log(id === state.current_category.id)
+      if (id === state.current_category.id) {
+        state.current_category = null
+        console.log(state.current_category)
+      }
+      console.log(state.current_category)
     }
   },
   actions: {

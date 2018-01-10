@@ -12,7 +12,7 @@
               <v-list-tile-title>{{ category.title }}</v-list-tile-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn icon ripple @click="DeleteCategory(category.id)" v-if="!category.freezing">
+              <v-btn icon ripple @click.stop="DeleteCategory(category.id)" v-if="!category.fixed">
                 <v-icon color="grey lighten-1">settings</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -107,3 +107,5 @@ import Header from './components/header.vue'
     })
   }
 </script>
+
+
