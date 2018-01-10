@@ -17,7 +17,7 @@ class Api::UsersController < ApplicationController
   def create 
     @user = User.new(user_params)
     if @user.save
-      @user.categories.create(title: 'Inbox', user_id: @user.id)
+      @user.categories.create(title: 'Inbox', user_id: @user.id, fixed: true)
       log_in @user
       render json: { email: @user.email, id: @user.id, categories: @user.categories }
     else

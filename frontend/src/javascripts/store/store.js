@@ -31,7 +31,7 @@ export default new Vuex.Store({
   ],
   state: {
     user: null,
-    current_category: { title: "Inbox", id: 1},
+    current_category: null,
     isUserLoggedIn: false,
     loading: false,
     errors: ''
@@ -49,13 +49,12 @@ export default new Vuex.Store({
       state.user = user
       state.isUserLoggedIn = true
       state.errors = null
-      state.current_category = { title: 'Inbox', id: 1 }
+      state.current_category = null
     },
     setTasks (state, tasks) {
       state.user.tasks = tasks
     },
     setErrors (state, errors) {
-      console.log(errors.response.data.ErrorMesage)
       state.errors = errors.response.data.ErrorMesage
     },
     logoutUser (state, user) {
@@ -106,12 +105,9 @@ export default new Vuex.Store({
     },
     deleteCategory (state, id) {
       state.user.categories = remove(state.user.categories, id, 'id')
-      console.log(id === state.current_category.id)
       if (id === state.current_category.id) {
         state.current_category = null
-        console.log(state.current_category)
       }
-      console.log(state.current_category)
     }
   },
   actions: {
@@ -145,7 +141,6 @@ export default new Vuex.Store({
               password: user.password, password_confirmation: user.password_confirmation
           }
         })
-          console.log(response)
           commit('setUser', response.data)
           commit('setRoot', '/')
       } catch (error) {
