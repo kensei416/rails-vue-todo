@@ -25,7 +25,6 @@
             prepend-icon="create"
             ref="category"
             class="input-category"
-            @input="geLength"
             @keyup.enter="AddCategory"
             :rules="[()=> !!newCategory || 'This field is required']"
             >
@@ -96,9 +95,6 @@ import Header from './components/header.vue'
       },
       SelectCategory(category) {
         this.$store.commit('setCurrentCategory', category)
-      },
-       geLength () {
-        console.log(this.newCategory.length)
       }
     },
     computed: mapGetters({
