@@ -96,9 +96,10 @@ export default new Vuex.Store({
     },
     deleteCategory (state, id) {
       state.user.categories = remove(state.user.categories, id, 'id')
-      if (id === state.current_category.id) {
-        state.current_category = null
-      }
+      if (state.current_category !== null)
+        if (id === state.current_category.id ) {
+          state.current_category = null
+        }
     }
   },
   actions: {
@@ -157,6 +158,7 @@ export default new Vuex.Store({
     },
     DeleteCategory({commit, state}, id) {
       commit('setLoading', true)
+      console.log(id)
       try {
         axios.delete(`/api/categories/${id}`)
         commit('deleteCategory', id)
