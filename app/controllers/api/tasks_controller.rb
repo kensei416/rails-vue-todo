@@ -25,11 +25,11 @@ class Api::TasksController < ApplicationController
   end
 
 
-    private
+  private
       
     def task_params
-    params.fetch(:task, {}).permit(
-        :title, :category_id, :is_done, :fav
-    )
-  end
+      params.fetch(:task, {}).permit(
+          :title, :category_id, :is_done, :fav
+      )
+    end
 end

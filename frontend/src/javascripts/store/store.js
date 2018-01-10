@@ -87,7 +87,9 @@ export default new Vuex.Store({
         fav: payload.fav,
         category_id: payload.category_id
       })
-      console.log(state.user.tasks)
+    },
+    deleteTasks(state, id) {
+      state.user.tasks
     },
     setRoot(state, root) {
       state.route = root
@@ -166,6 +168,7 @@ export default new Vuex.Store({
       try {
         axios.delete(`/api/categories/${id}`)
         commit('deleteCategory', id)
+        commit('deleteTasks', id)
         commit('setLoading', false)
       } catch (error) {
         commit('setErrors', error)
