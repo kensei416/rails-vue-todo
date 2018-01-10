@@ -37,14 +37,6 @@ export default new Vuex.Store({
     errors: ''
   },
   mutations: {
-    setToken (state, token) {
-      state.token = token
-      if (token) {
-        state.isUserLoggedIn = true
-      } else {
-        state.isUserLoggedIn = false
-      }
-    },
     setUser (state, user) {
       state.user = user
       state.isUserLoggedIn = true
@@ -56,6 +48,9 @@ export default new Vuex.Store({
     },
     setErrors (state, errors) {
       state.errors = errors.response.data.ErrorMesage
+    },
+    setRoot(state, root) {
+      state.route = root
     },
     logoutUser (state, user) {
       state.user = null
@@ -76,7 +71,6 @@ export default new Vuex.Store({
           state.user.tasks[id].fav = !state.user.tasks[id].fav
           break
       }
-      
     },
     AddTask(state, payload) {
       state.user.tasks.push({
@@ -87,11 +81,8 @@ export default new Vuex.Store({
         category_id: payload.category_id
       })
     },
-    deleteTasks(state, id) {
-      state.user.tasks = remove(state.user.tasks, id, 'category_id')
-    },
-    setRoot(state, root) {
-      state.route = root
+    deleteTasks(state, payload) {
+      state.user.tasks = remove(state.user.tasks, payload.id, payload.type)
     },
     setCurrentCategory(state, category) {
       category = {
@@ -169,7 +160,7 @@ export default new Vuex.Store({
       try {
         axios.delete(`/api/categories/${id}`)
         commit('deleteCategory', id)
-        commit('deleteTasks', id)
+        commit('deleteTasks', {id: id, type: 'category_id' })
         commit('setLoading', false)
       } catch (error) {
         commit('setErrors', error)
@@ -201,6 +192,7 @@ export default new Vuex.Store({
             { task: { is_done: !state.user.tasks[id].is_done } })
               .then((response) => {
                 commit('toggleTask', payload)
+                commit('deleteTasks', {id: payload.id, type: 'id'})
               }, (error) => {
                 console.log(error)
               })

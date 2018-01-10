@@ -1,7 +1,7 @@
 class Api::SessionsController < ApplicationController
 
   def index
-    render json: { email: current_user.email, id: current_user.id, categories: current_user.categories, tasks: current_user.tasks }
+    render json: { email: current_user.email, id: current_user.id, categories: current_user.categories, tasks: current_user.tasks.where("is_done = ?", false) }
   end
 
   def create
