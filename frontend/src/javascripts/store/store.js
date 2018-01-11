@@ -129,10 +129,11 @@ export default new Vuex.Store({
       try {
         const response = await axios.post('/api/users', 
           { user: { 
-              email: user.email, user_id: user.user_id, 
+              email: user.email,
               password: user.password, password_confirmation: user.password_confirmation
           }
         })
+          console.log(response.data)
           commit('setUser', response.data)
           commit('setRoot', '/')
       } catch (error) {

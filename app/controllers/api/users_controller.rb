@@ -19,7 +19,7 @@ class Api::UsersController < ApplicationController
     if @user.save
       @user.categories.create(title: 'Inbox', user_id: @user.id, fixed: true)
       log_in @user
-      render json: { email: @user.email, id: @user.id, categories: @user.categories }
+      render json: { email: @user.email, id: @user.id, categories: @user.categories, tasks: [] }
     else
       render json: @user, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Api::UsersController < ApplicationController
 
   private 
   def user_params
-    params.require(:user).permit(:email, :user_id, :password, :password_confirmation)
+    params.require(:user).permit(:email, :password, :password_confirmation)
   end
 
   def correct_user

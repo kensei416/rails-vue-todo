@@ -1,4 +1,4 @@
-user = User.create!(user_id:  "kensei416",
+user = User.create!(
         email: "kensei416@gmail.com",
         password:              "foobar",
         password_confirmation: "foobar")

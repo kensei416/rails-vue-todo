@@ -24,19 +24,6 @@
             counter="255"
           ></v-text-field>
           <v-text-field
-            label="UserId"
-            placeholder="Press Your UserId"
-            v-model="form.user_id"
-            required
-            ref="user_id"
-            :rules="[
-              () => !!form.user_id || 'This field is required',
-              () => !!form.user_id.match(/^[a-z0-9]+$/) && form.user_id.length <= 14 || 'Your Id can not use large characters and maximum word length is 14'
-            ]"
-            counter="14"
-            
-          ></v-text-field>
-          <v-text-field
             label="Password"
             v-model="form.password"
             required
@@ -88,7 +75,6 @@ export default {
       return{
         name: '',
         email: '',
-        user_id: '',
         password: '',
         password_confirmation: '',
         formHasErrors: false,
@@ -121,7 +107,6 @@ export default {
       form () {
         return {
           email: this.email,
-          user_id: this.user_id,
           password: this.password,
           password_confirmation: this.password_confirmation
         }
