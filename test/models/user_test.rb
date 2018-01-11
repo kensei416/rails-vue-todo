@@ -3,7 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   def setup
     @user = User.new(
-      email: "user@example.com", user_id: "user",
+      email: "user@example.com",
       password: "foobar", password_confirmation: "foobar"
       )
 
@@ -19,18 +19,9 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  test "user_id should be present" do
-    @user.user_id = ""
-    assert_not @user.valid?
-  end
 
   test "email should not be too long" do
     @user.email = "a" * 244 + "@example.com"
-    assert_not @user.valid?
-  end
-
-  test "user_id should not be too long" do
-    @user.user_id = "a" * 50
     assert_not @user.valid?
   end
   
@@ -43,19 +34,11 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  test "user_id validation should reject invalid id" do
-    invalid_ids = %w[およう ken;fsdaf ホゲホゲ]
-    invalid_ids.each do |invalid_id| 
-      @user.user_id = invalid_id
-      assert_not @user.valid?, "#{invalid_id.inspect} should be invalid"
-    end
-  end
-  
   test "email addresses should be unique" do
     duplicate_user = @user.dup
     duplicate_user.email = @user.email.upcase
     @user.save
-    assert_not duplicate_user.valid?
+    assert duplicate_user.valid?
   end
   
   test "email addresses should be saved as lower-case" do
@@ -63,13 +46,6 @@ class UserTest < ActiveSupport::TestCase
     @user.email = mixed_case_email
     @user.save
     assert_equal mixed_case_email.downcase, @user.reload.email
-  end
-
-  test "user_id should be save as lower-case" do
-    New_user_id = "KENSEI"
-    @user.user_id = New_user_id.downcase
-    assert @user.save 
-    assert_equal New_user_id.downcase, @user.reload.user_id
   end
 
   test "password should be present (nonblank)" do
