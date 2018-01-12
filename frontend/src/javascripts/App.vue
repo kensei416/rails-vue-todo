@@ -13,7 +13,7 @@
             </v-list-tile-content>
             <v-list-tile-action>
               <v-btn icon ripple @click.stop="DeleteCategory(category.id)" v-if="!category.fixed">
-                <v-icon color="grey lighten-1">settings</v-icon>
+                <v-icon color="grey lighten-1">more_horiz</v-icon>
               </v-btn>
             </v-list-tile-action>
           </v-list-tile>

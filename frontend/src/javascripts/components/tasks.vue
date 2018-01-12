@@ -78,7 +78,7 @@
           </v-list-tile-action>
            <v-list-tile-action>
             <v-btn  flat icon @click="">
-              <v-icon>settings</v-icon>
+              <v-icon>more_horiz</v-icon>
             </v-btn>
           </v-list-tile-action>
         </v-list-tile>
