@@ -5,7 +5,7 @@
     </v-card-title>
     <v-card-actions>
       <v-layout row wrap v-show="dialog">
-        <v-flex xs8>
+        <v-flex xs12 sm8>
           <v-card-actions>
             <v-text-field 
             label="Write Your Task" 
@@ -17,7 +17,7 @@
             </v-text-field>
           </v-card-actions>
         </v-flex>
-        <v-flex xs4 >
+        <v-flex xs12 sm4 >
           <v-menu
             lazy
             :close-on-content-click="false"
