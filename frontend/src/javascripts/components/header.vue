@@ -69,18 +69,18 @@ import axios from 'axios'
         return this.$store.getters.getUser
       },
       items () {
-        // if (this.logged_in) {
-        //   return [
-        //     { title: '', icon: 'notifications_none', root: '/account' },
-        //     { title: '', icon: 'bookmark_border', root: '/contact' }
-        //   ]
-        // } else {
-        //   return [
-        //     { title: 'Signup', icon: 'create', root: '/signup' },
-        //     { title: 'Login', icon: 'lock_open', root: '/login' }
-        //   ]
-        // }
-        return [{ title: 'Home', icon: 'home', root: '/' }]
+        if (this.logged_in) {
+          // return [
+          //   { title: '', icon: 'notifications_none', root: '/account' },
+          //   { title: '', icon: 'bookmark_border', root: '/contact' }
+          // ]
+          return [{ title: 'Home', icon: 'home', root: '/' }]
+        } else {
+          return [
+            { title: 'Signup', icon: 'create', root: '/signup' },
+            { title: 'Login', icon: 'lock_open', root: '/login' }
+          ]
+        }
       }
     }
   }
