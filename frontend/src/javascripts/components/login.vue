@@ -14,24 +14,19 @@
             label="Email"
             placeholder="Press Your Email"
             v-model="form.email"
-            required
-            type="email"
-            ref="email"
+            :error-messages="errors.collect('email')"
+            v-validate="'required|email'"
+            data-vv-name="email"
             class="email"
-            :rules="[
-              () => !!form.email || 'This field is required',
-              () => !!form.email.match(/^\S+@\S+\.\S+$/) && form.email.length <= 255 || 'Your Email is Invalid'
-            ]"
-            counter="255"
           ></v-text-field>
           <v-text-field
             label="Password"
             v-model="form.password"
-            required
+            :error-messages="errors.collect('password')"
+            v-validate="'required|min:3'" 
+            data-vv-name="password"
             type="password"
-            ref="password"
             class="password"
-            :rules="[() => !!form.password || 'This field is required']"
           ></v-text-field>
           <v-checkbox
             color="green"

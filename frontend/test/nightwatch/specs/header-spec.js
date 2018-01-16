@@ -27,7 +27,6 @@ module.exports = {
       .click('.loginButton')
     browser
       .url(function(result) {
-        console.log(result)
         this.assert.equal(result.value, 'http://localhost:5000/login', 'Url is the same')
       }).end()
   }

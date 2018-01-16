@@ -31,6 +31,7 @@
     "phantomjs": "^2.1.7",
     "selenium-server-standalone-jar": "3.8.1",
     "style-loader": "^0.19.1",
+    "vee-validate": "^2.0.3",
     "vue-html-loader": "^1.2.4",
     "vue-jest": "^1.4.0",
     "vue-loader": "^13.6.2",
