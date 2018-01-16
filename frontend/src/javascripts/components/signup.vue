@@ -14,30 +14,28 @@
             label="Email"
             placeholder="Press Your Email"
             v-model="form.email"
-            required
-            type="email"
-            ref="email"
-            :rules="[
-              () => !!form.email || 'This field is required',
-              () => !!form.email.match(/^\S+@\S+\.\S+$/) && form.email.length <= 255 || 'Your Email is Invalid'
-            ]"
-            counter="255"
+            :error-messages="errors.collect('email')"
+            v-validate="'required|email'"
+            data-vv-name="email"
+            class="email"
           ></v-text-field>
           <v-text-field
             label="Password"
             v-model="form.password"
-            required
+            :error-messages="errors.collect('password')"
+            v-validate="'required|min:6'" 
+            data-vv-name="password"
             type="password"
-            ref="password"
-            :rules="[() => !!form.password && form.password === form.password_confirmation || 'This field is required']"
+            class="password"
           ></v-text-field>
           <v-text-field
             label="Passoword Confirmation"
             v-model="form.password_confirmation"
-            required
+            :error-messages="errors.collect('password_confirmation')"
+            v-validate="'required|min:6'" 
+            data-vv-name="password_confirmation"
             type="password"
-            ref="password_confirmation"
-            :rules="[() => !!form.password_confirmation && form.password === form.password_confirmation || 'This field is required']"
+            class="password_confirmation"
           ></v-text-field>
         </v-card-text>
         <v-divider class="mt-5"></v-divider>
@@ -53,7 +51,7 @@
                 icon
                 @click="resetForm"
                 slot="activator"
-                class="my-0"
+                class="my-0 reset"
               >
                 <v-icon>refresh</v-icon>
               </v-btn>
@@ -72,11 +70,14 @@ import axios from 'axios'
 
 export default {
     data () {
-      return{
-        name: '',
+       const defaultForm = Object.freeze({
         email: '',
         password: '',
-        password_confirmation: '',
+        password_confirmation: ''
+      })
+      return{
+        $validates: true,
+        form: Object.assign({}, defaultForm),
         formHasErrors: false,
         ReturnErrors: false
       }
@@ -92,15 +93,13 @@ export default {
       submit () {
         this.formHasErrors = false
 
-        Object.keys(this.form).forEach(f => {
-          if (!this.form[f]) this.formHasErrors = true
-
-          this.$refs[f].validate(true)
+        this.$validator.validateAll().then((result) => {
+            if (result) {
+              this.$store.dispatch('signUpUser', this.form)
+            } else {
+              this.FormHasErrors = true
+            }
         })
-
-        if (!this.formHasErrors) {
-          this.$store.dispatch('signUpUser', this.form)
-        }
       }
     },
     computed: {

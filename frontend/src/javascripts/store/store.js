@@ -111,6 +111,8 @@ export default new Vuex.Store({
       commit('setUser', user)
     },
     async loginUser({commit}, user) {
+      commit('setLoading', true)
+      console.log(user)
       try {
         const response = await axios.post('/api/sessions', 
           { session: { 
@@ -121,17 +123,20 @@ export default new Vuex.Store({
         })
           commit('setUser', response.data)
           commit('setRoot', '/')
+          commit('setLoading', false)
       } catch (error) {
         commit('setErrors', error)
+        commit('setLoading', false)
       }
     },
     async signUpUser({commit}, user) {
       try {
-        const response = await axios.post('/api/users', 
-          { user: { 
+        const response = await axios.post('/api/users', { 
+            user: { 
               email: user.email,
-              password: user.password, password_confirmation: user.password_confirmation
-          }
+              password: user.password, 
+              password_confirmation: user.password_confirmation
+            }
         })
           console.log(response.data)
           commit('setUser', response.data)

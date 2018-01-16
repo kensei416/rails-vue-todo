@@ -23,7 +23,7 @@
             label="Password"
             v-model="form.password"
             :error-messages="errors.collect('password')"
-            v-validate="'required|min:3'" 
+            v-validate="'required|min:6'" 
             data-vv-name="password"
             type="password"
             class="password"
@@ -32,9 +32,9 @@
             color="green"
             ref="checkbox"
             class="checkbox"
-            v-model="remember_me"
+            v-model="form.remember_me"
           >
-            <div slot="label" @click.stop="remember_me=!remember_me">
+            <div slot="label" @click.stop="form.remember_me=!form.remember_me">
               Remember me on this computer
             </div>
           </v-checkbox>
@@ -77,47 +77,32 @@ export default {
     data () {
       const defaultForm = Object.freeze({
         email: '',
-        password: ''
+        password: '',
+        remember_me: false
       })
       return{
         form: Object.assign({}, defaultForm),
-        remember_me: 0,
-        FormHasErrors: false,
-        rules: {
-          email: [
-            val => !!val || 'This field is required',
-            val => !!val.match(/^\S+@\S+\.\S+$/) || val.length >= 255 || 'Your Email is Invalid'
-          ],
-          password: [
-            val => !!val || 'This field is required',
-            val => val.length >= 30 || 'Your password is too long'
-          ]
-        }
-       
+        FormHasErrors: false, 
+        $validates: true
       }
     },
     methods: {
       resetForm () {
-        this.FormHasErrors = false
-
-        Object.keys(this.form).forEach(f => {
-          this.$refs[f].reset()
-        })
+        this.FormHasErrors =  false
+        this.form.email = null
+        this.form.password = null
+        this.form.remember_me = false
+        this.errors.clear()
       },
        login () {
-        this.FormHasErrors = false
-
-        Object.keys(this.form).forEach(f => {
-          if (!this.form[f]) this.FormHasErrors = true
+        this.formHasErrors = false
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            this.$store.dispatch('loginUser', this.form)
+          } else {
+            this.FormHasErrors = true
+          }
         })
-        if (!this.FormHasErrors) {
-          this.$store.dispatch('loginUser', 
-          {
-            email: this.form.email,
-            password: this.form.password, 
-            remember_me: String(this.remember_me)
-          })
-        }
       }
     },
     computed: mapGetters({
