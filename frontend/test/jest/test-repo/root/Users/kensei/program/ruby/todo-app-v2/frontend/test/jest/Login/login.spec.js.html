@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">37.93% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>29/29</span>
+        <span class='fraction'>11/29</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,13 +35,13 @@
         <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">37.93% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>29/29</span>
+        <span class='fraction'>11/29</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -140,34 +140,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,34 +204,34 @@ describe('Modules.vue', () =&gt; {
 &nbsp;
   it ('Invalid data should be error', () =&gt; {
     const wrapper = shallow(Login, { store, localVue })
-    const vm = wrapper.vm
-    const login = wrapper.find('.login')
+    const vm = <span class="cstat-no" title="statement not covered" >wrapper.vm</span>
+    const login = <span class="cstat-no" title="statement not covered" >wrapper.find('.login')</span>
 &nbsp;
     // #empty email, password
-    login.trigger('click')
-    expect(vm.FormHasErrors).toBe(true)
+<span class="cstat-no" title="statement not covered" >    login.trigger('click')</span>
+<span class="cstat-no" title="statement not covered" >    expect(vm.FormHasErrors).toBe(true)</span>
 &nbsp;
     // #empty email
-    vm.form.password ="foobar"
-    login.trigger('click')
-    expect(vm.FormHasErrors).toBe(true)
+<span class="cstat-no" title="statement not covered" >    vm.form.password ="foobar"</span>
+<span class="cstat-no" title="statement not covered" >    login.trigger('click')</span>
+<span class="cstat-no" title="statement not covered" >    expect(vm.FormHasErrors).toBe(true)</span>
 &nbsp;
     // #password empty
-    vm.form.email = "kensei416@gmail.com"
-    vm.form.password = ""
-    login.trigger('click')
-    expect(vm.FormHasErrors).toBe(true)
+<span class="cstat-no" title="statement not covered" >    vm.form.email = "kensei416@gmail.com"</span>
+<span class="cstat-no" title="statement not covered" >    vm.form.password = ""</span>
+<span class="cstat-no" title="statement not covered" >    login.trigger('click')</span>
+<span class="cstat-no" title="statement not covered" >    expect(vm.FormHasErrors).toBe(true)</span>
   })
 &nbsp;
   it ('Valid data should be logged_in', () =&gt; {
     const wrapper = shallow(Login, { store, localVue })
-    const vm = wrapper.vm
-    const login = wrapper.find('.login')
-    vm.form.email = "kensei416@gmail.com"
-    vm.form.password ="foobar"
-    login.trigger('click')
-    expect(vm.FormHasErrors).toBe(false)
-    expect(actions.loginUser).toHaveBeenCalled()
+    const vm = <span class="cstat-no" title="statement not covered" >wrapper.vm</span>
+    const login = <span class="cstat-no" title="statement not covered" >wrapper.find('.login')</span>
+<span class="cstat-no" title="statement not covered" >    vm.form.email = "kensei416@gmail.com"</span>
+<span class="cstat-no" title="statement not covered" >    vm.form.password ="foobar"</span>
+<span class="cstat-no" title="statement not covered" >    login.trigger('click')</span>
+<span class="cstat-no" title="statement not covered" >    expect(vm.FormHasErrors).toBe(false)</span>
+<span class="cstat-no" title="statement not covered" >    expect(actions.loginUser).toHaveBeenCalled()</span>
   })
 &nbsp;
 &nbsp;
@@ -241,7 +241,7 @@ describe('Modules.vue', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jan 16 2018 14:54:14 GMT+0900 (JST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jan 16 2018 17:50:06 GMT+0900 (JST)
 </div>
 </div>
 <script src="../../../../../../../../../../prettify.js"></script>
