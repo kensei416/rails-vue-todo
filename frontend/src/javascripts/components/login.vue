@@ -17,6 +17,7 @@
             required
             type="email"
             ref="email"
+            class="email"
             :rules="[
               () => !!form.email || 'This field is required',
               () => !!form.email.match(/^\S+@\S+\.\S+$/) && form.email.length <= 255 || 'Your Email is Invalid'
@@ -29,14 +30,16 @@
             required
             type="password"
             ref="password"
+            class="password"
             :rules="[() => !!form.password || 'This field is required']"
           ></v-text-field>
           <v-checkbox
             color="green"
             ref="checkbox"
+            class="checkbox"
             v-model="remember_me"
           >
-            <div slot="label" @click.stop="">
+            <div slot="label" @click.stop="remember_me=!remember_me">
               Remember me on this computer
             </div>
           </v-checkbox>

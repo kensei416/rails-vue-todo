@@ -18,6 +18,7 @@ module.exports = {
       .expect.element('.loginButton').to.be.present
     browser
       .expect.element('.signupButton').to.be.present
+    browser.end()
   },
 
   'Header Auth test' : function (browser) {
@@ -28,6 +29,6 @@ module.exports = {
       .url(function(result) {
         console.log(result)
         this.assert.equal(result.value, 'http://localhost:5000/login', 'Url is the same')
-      })
+      }).end()
   }
 };
