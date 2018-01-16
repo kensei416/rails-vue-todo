@@ -1,6 +1,6 @@
 {
-  "src_folders": ["test/specs"],
-  "output_folder": "test/reports",
+  "src_folders": ["frontend/test/nightwatch/specs"],
+  "output_folder": "test/nightwatch/reports",
   "selenium": {
     "start_process": true,
     "server_path": "node_modules/selenium-server-standalone-jar/jar/selenium-server-standalone-3.8.1.jar",

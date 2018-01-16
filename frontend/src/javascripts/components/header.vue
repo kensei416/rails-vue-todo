@@ -2,7 +2,7 @@
     <v-toolbar class="cyan accent-3" dark >
       <v-toolbar-title class="white--text">todo</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat v-for="item in items" :key="item.icon" @click="navigateTo(item.root)">
+      <v-btn flat v-for="item in items" :class="item.class" :key="item.icon" @click="navigateTo(item.root)">
         <v-icon>{{item.icon}}</v-icon>{{item.title}}
       </v-btn>
       <v-menu
@@ -77,8 +77,8 @@ import axios from 'axios'
           return [{ title: 'Home', icon: 'home', root: '/' }]
         } else {
           return [
-            { title: 'Signup', icon: 'create', root: '/signup' },
-            { title: 'Login', icon: 'lock_open', root: '/login' }
+            { title: 'Signup', icon: 'create', root: '/signup', class: 'signupButton' },
+            { title: 'Login', icon: 'lock_open', root: '/login', class: 'loginButton' }
           ]
         }
       }
