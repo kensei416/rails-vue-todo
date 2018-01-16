@@ -60,15 +60,14 @@
     ],
     "mapCoverage": true,
     "testMatch": [
-      "**/__tests__/**/*.js?(x)",
-      "**/?(*.)(spec).js?(x)"
+      "**/test/jest/**/*.spec.js?(x)"
     ],
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "./frontend/src/javascripts/.{js,vue}",
-      "./frontend/src/javascripts/**/.{js,vue}"
+      "./frontend/jest/javascripts/.{js,vue}",
+      "./frontend/jest/javascripts/**/.{js,vue}"
     ],
-    "coverageDirectory": "./frontend/test-repo",
+    "coverageDirectory": "./frontend/test/jest/test-repo",
     "coverageReporters": [
       "html",
       "text",
