@@ -4,7 +4,8 @@
   "scripts": {
     "build": "webpack --config ./frontend/config/dev/webpack.config.js",
     "test": "jest",
-    "dev": "webpack-dev-server --config ./frontend/config/dev/webpack.config.js"
+    "dev": "webpack-dev-server --config ./frontend/config/dev/webpack.config.js",
+    "e2e": "nightwatch -c ./nightwatch.json"
   },
   "dependencies": {
     "material-icons": "^0.1.0",

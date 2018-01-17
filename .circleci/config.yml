@@ -40,4 +40,7 @@ jobs:
           name: run tests
           command: |
             bundle exec rake test 
-            npm test 
+            bundle exec rails server
+            npm run e2e
+
+           
