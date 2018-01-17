@@ -32,6 +32,17 @@ module.exports = {
       .setValue('.password .input-group__input input[type=password]', 'foobar')
       .click('.checkbox')
       .click('.login')
-      .assert.cssProperty('.error-message', 'display', 'flex')
+      .assert.containsText('.error-message', 'Invalid email/password combination')
+  },
+
+  'Input Valid Email & Password' : function (browser) {
+    browser
+      .url('http://localhost:5000/login').pause(1000)
+      .setValue('.email .input-group__input input[type=text]', 'kensei416@gmail.com')
+      .setValue('.password .input-group__input input[type=password]', 'foobar')
+      .click('.checkbox')
+      .click('.login').pause(1000)
+      .assert.urlEquals('http://localhost:5000/')
+      .end()
   }
 }
