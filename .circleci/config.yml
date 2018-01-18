@@ -40,7 +40,8 @@ jobs:
           name: run tests
           command: |
             bundle exec rake test 
-            bundle exec rails server
-            npm run e2e
+            bundle exec rails s -d 
+            kill `cat tmp/pids/server.pid`
+
 
            

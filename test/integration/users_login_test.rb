@@ -34,14 +34,14 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   test "login with remembering" do
     log_in_as(@user, remember_me: true)
-    assert_equal cookies['remember_token'], assigns(:user).remember_token
+    assert_not_empty cookies['remember_token']
   end
 
   test "login without remembering" do
     log_in_as(@user, remember_me: true)    
     assert_not_empty cookies['remember_token']
     delete api_session_path(@user)
-    log_in_as(@user, remember_me: 'false')
+    log_in_as(@user, remember_me: false)
     assert_empty cookies['remember_token']
   end
   

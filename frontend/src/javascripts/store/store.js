@@ -118,7 +118,7 @@ export default new Vuex.Store({
           { session: { 
             email: user.email, 
             password: user.password,
-            remember_me: user.remember_me
+            remember_me: String(user.remember_me)
           }
         })
           commit('setUser', response.data)

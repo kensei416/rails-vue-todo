@@ -16,11 +16,17 @@ end
 
 
 class ActionDispatch::IntegrationTest
-  
-  def log_in_as(user, password: 'password', remember_me: true)
-    post api_sessions_path, params: { session: { email: user.email,
+  # テストユーザーとしてログインする
+  def log_in_as(user, password: 'password', remember_me: "true")
+    post api_sessions_path, params: 
+                                    { 
+                                      session: 
+                                      { 
+                                          email: user.email,
                                           password: password,
-                                          remember_me: remember_me } }
+                                          remember_me: remember_me
+                                      } 
+                                    }
   end
 end
   
