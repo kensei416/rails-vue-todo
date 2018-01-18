@@ -21,18 +21,20 @@
           ></v-text-field>
           <v-text-field
             label="Password"
+            name="password"
             v-model="form.password"
             :error-messages="errors.collect('password')"
-            v-validate="'required|min:6'" 
+            v-validate="'required|min:8'" 
             data-vv-name="password"
             type="password"
             class="password"
           ></v-text-field>
           <v-text-field
             label="Passoword Confirmation"
+            name="password_confirmation"
             v-model="form.password_confirmation"
             :error-messages="errors.collect('password_confirmation')"
-            v-validate="'required|min:6'" 
+            v-validate="'required|min:8|confirmed:password'"
             data-vv-name="password_confirmation"
             type="password"
             class="password_confirmation"
@@ -40,7 +42,7 @@
         </v-card-text>
         <v-divider class="mt-5"></v-divider>
         <v-card-actions>
-          <v-btn flat　@click="">Cancel</v-btn>
+          <v-btn flat　@click="" class="reset">Reset</v-btn>
           <v-spacer></v-spacer>
           <v-slide-x-reverse-transition>
             <v-tooltip
@@ -58,7 +60,7 @@
               <span>Refresh form</span>
             </v-tooltip>
           </v-slide-x-reverse-transition>
-          <v-btn color="primary" flat @click="submit">Submit</v-btn>
+          <v-btn color="primary" flat @click="submit" class="signup">SignUp</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -100,15 +102,6 @@ export default {
               this.FormHasErrors = true
             }
         })
-      }
-    },
-    computed: {
-      form () {
-        return {
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.password_confirmation
-        }
       }
     }
   }

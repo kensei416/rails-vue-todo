@@ -12,15 +12,14 @@ module.exports = {
   'Input Invalid Value' : function (browser) {
     browser
       .url('http://localhost:5000/login').pause(1000)
-      .setValue('.email .input-group__input input[type=text]', 'nightwatch')
-      .assert.containsText('.email .input-group__error', 'The email field must be a valid email.')
-      .setValue('.password .input-group__input input[type=password]', 'foobar')
-      .assert.elementPresent('.password .input-group__error')
+      .setValue('.email input[type=text]', 'nightwatch')
       .click('.checkbox')
       .click('.login')
+      .assert.containsText('.email .input-group__error', 'The email field must be a valid email.')      
+      .assert.elementPresent('.password .input-group__error')      
       .click('.reset')
-      .assert.value('.email .input-group__input input[type=text]', '')
-      .assert.value('.password .input-group__input input[type=password]', '')
+      .assert.value('.email input[type=text]', '')
+      .assert.value('.password input[type=password]', '')
       .end()
   },
 
