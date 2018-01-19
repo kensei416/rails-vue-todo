@@ -11,6 +11,7 @@
             label="Write Your Task" 
             required 
             v-model="newTask"
+            class="input-task"
             prepend-icon="create"
             @keyup.enter="AddTask"
             >
@@ -22,6 +23,7 @@
             lazy
             :close-on-content-click="false"
             v-model="menu"
+            class="input-expireday"
             transition="scale-transition"
             offset-y
             full-width
@@ -48,19 +50,19 @@
           </v-menu>
         </v-flex>
         <v-flex>
-          <v-btn dark @click="AddTask" class="cyan accent-3"> 
+          <v-btn dark @click="AddTask" class="cyan accent-3 add-task"> 
             <v-icon dark>add</v-icon>AddTask
           </v-btn>
-          <v-btn light @click="CancelTask">
+          <v-btn light @click="CancelTask" class="cancel-task">
             Cancel
           </v-btn>
         </v-flex>
       </v-layout>
     </v-card-actions>
-    <v-btn flat light @click="dialog=!dialog" v-show="dialog===false" v-if="current_category"> 
+    <v-btn flat light @click="dialog=!dialog" v-show="dialog===false" v-if="current_category" class="open-taskform"> 
       <v-icon dark>add</v-icon>AddTask
     </v-btn>
-    <v-list three-line v-if="current_category">
+    <v-list three-line v-if="current_category" class="tasks">
       <template v-for="task in tasks">
         <v-list-tile avatar v-bind:key="task.id" v-show="task.is_done===false" v-if="current_category.id === task.category_id">
           <v-list-tile-action>
