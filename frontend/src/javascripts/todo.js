@@ -33,11 +33,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       } else {
         this.navigateTo('/login')
       }
-    },
-    methods: {
-      navigateTo (root) {
-        this.$router.push(root)
-      }
-    },
+    }
   })
 })

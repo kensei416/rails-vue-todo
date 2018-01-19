@@ -3,9 +3,9 @@
    <v-layout justify-center>
     <v-flex xs12 sm10 md8 lg6>
       <v-card ref="form">
-        <v-card-title v-show="ReturnErrors" class="red--text">
-         <h1>Your address or user_id is already used </h1>
-        </v-card-title>
+        <v-alert color="error" :value="!!errorMessage" class="error-message">
+          <h1>{{ errorMessage }}</h1>
+        </v-alert>
         <v-card-title >
          <h1>Sign up</h1>
         </v-card-title>
@@ -42,12 +42,12 @@
         </v-card-text>
         <v-divider class="mt-5"></v-divider>
         <v-card-actions>
-          <v-btn flat　@click="" class="reset">Reset</v-btn>
+          <v-btn color="primary" flat @click="signup" class="signup">SignUp</v-btn>
           <v-spacer></v-spacer>
           <v-slide-x-reverse-transition>
             <v-tooltip
               left
-              v-if="formHasErrors"
+              v-show="formHasErrors||errorMessage"
             >
               <v-btn
                 icon
@@ -60,7 +60,6 @@
               <span>Refresh form</span>
             </v-tooltip>
           </v-slide-x-reverse-transition>
-          <v-btn color="primary" flat @click="submit" class="signup">SignUp</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -68,41 +67,44 @@
   </v-container>
 </template>
 <script>
-import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
     data () {
        const defaultForm = Object.freeze({
         email: '',
         password: '',
-        password_confirmation: ''
+        password_confirmation: '',
+        formHasErrors: false
       })
       return{
         $validates: true,
         form: Object.assign({}, defaultForm),
         formHasErrors: false,
-        ReturnErrors: false
       }
     },
     methods: {
       resetForm () {
-        this.formHasErrors = false
-
-        Object.keys(this.form).forEach(f => {
-          this.$refs[f].reset()
-        })
+        this.FormHasErrors =  false
+        this.form.email = ''
+        this.form.password = ''
+        this.form.password_confirmation = ''
+        this.errors.clear()
       },
-      submit () {
+      signup () {
         this.formHasErrors = false
 
         this.$validator.validateAll().then((result) => {
-            if (result) {
-              this.$store.dispatch('signUpUser', this.form)
-            } else {
-              this.FormHasErrors = true
-            }
+          if (result) {
+            this.$store.dispatch('signUpUser', this.form)
+          } else {
+            this.formHasErrors = true
+          }
         })
       }
-    }
+    },
+     computed: mapGetters({
+      errorMessage: 'getResponseError'
+    })
   }
 </script>

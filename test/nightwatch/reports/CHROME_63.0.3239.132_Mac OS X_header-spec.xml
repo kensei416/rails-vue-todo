@@ -5,14 +5,14 @@
 
   <testsuite name="header-spec"
     errors="0" failures="0" hostname="" id="" package="header-spec" skipped="0"
-    tests="3" time="9.566" timestamp="Thu, 18 Jan 2018 03:00:53 GMT">
+    tests="3" time="8.192" timestamp="Fri, 19 Jan 2018 02:40:08 GMT">
   
-    <testcase name="Contents test" classname="header-spec" time="4.528" assertions="1">
+    <testcase name="Contents test" classname="header-spec" time="3.314" assertions="1">
 
     
     </testcase>
   
-    <testcase name="Header test" classname="header-spec" time="2.735" assertions="3">
+    <testcase name="Header test" classname="header-spec" time="2.598" assertions="3">
 
     
 
@@ -21,7 +21,7 @@
     
     </testcase>
   
-    <testcase name="Header Auth test" classname="header-spec" time="2.303" assertions="1">
+    <testcase name="Header Auth test" classname="header-spec" time="2.280" assertions="1">
 
     
     </testcase>

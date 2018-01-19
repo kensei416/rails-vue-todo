@@ -21,7 +21,7 @@ class Api::UsersController < ApplicationController
       log_in @user
       render json: { email: @user.email, id: @user.id, categories: @user.categories, tasks: [] }
     else
-      render json: @user, status: :unprocessable_entity
+      render json: { ErrorMesage: 'Your e-mail is already in use.' }, status: :forbidden
     end
   end
 

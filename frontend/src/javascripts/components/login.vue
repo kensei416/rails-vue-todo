@@ -70,7 +70,6 @@
   </v-container>
 </template>
 <script>
-import axios from 'axios'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -89,12 +88,12 @@ export default {
     methods: {
       resetForm () {
         this.FormHasErrors =  false
-        this.form.email = null
-        this.form.password = null
+        this.form.email = ''
+        this.form.password = ''
         this.form.remember_me = false
         this.errors.clear()
       },
-       login () {
+       async login () {
         this.formHasErrors = false
         this.$validator.validateAll().then((result) => {
           if (result) {
@@ -106,7 +105,7 @@ export default {
       }
     },
     computed: mapGetters({
-      errorMessage: 'getError'
+      errorMessage: 'getResponseError'
     })
   }
 </script>

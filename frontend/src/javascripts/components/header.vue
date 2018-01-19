@@ -55,6 +55,8 @@ import axios from 'axios'
     methods: {
       navigateTo (root) {
         this.$router.push(root)
+        if (!this.$store.state.isUserLoggedIn)
+          this.$store.commit('clearFormErrors')
       },
       logout () {
         this.$store.dispatch('logoutUser', this.user.user_id)
