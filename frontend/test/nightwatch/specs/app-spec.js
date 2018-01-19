@@ -39,6 +39,8 @@ module.exports = {
       .assert.elementPresent('.open-dialog')
       .assert.hidden('.add-category')
       .assert.hidden('.cancel-category')
+      .assert.containsText('ul.categories li:nth-child(1)', 'Category')
+      .assert.containsText('ul.categories li:nth-child(2)', 'Inbox')
       .click('.open-dialog')
       .assert.hidden('.open-dialog')
       .assert.elementPresent('.input-category')

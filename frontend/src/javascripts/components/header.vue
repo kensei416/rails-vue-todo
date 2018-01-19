@@ -59,7 +59,7 @@ import axios from 'axios'
           this.$store.commit('clearErrors')
       },
       logout () {
-        this.$store.dispatch('logoutUser', this.user.user_id)
+        this.$store.dispatch('logoutUser', this.user.id)
         this.$router.push('/login')
       }
     },
