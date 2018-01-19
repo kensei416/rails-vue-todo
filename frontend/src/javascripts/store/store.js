@@ -56,13 +56,7 @@ export default new Vuex.Store({
     setError (state, errorObj) {
       state[errorObj.type] = errorObj.value
     },
-    setFormError(state, formState) {
-      state.formHasErrors = formState
-    },
-    setReponseError (state, responseError) {
-      state.responseError= responseError.response.data.ErrorMesage
-    },
-    clearFormErrors (state) {
+    clearErrors (state) {
       state.responseError = ''
       state.formHasErrors = false
     },
@@ -247,6 +241,9 @@ export default new Vuex.Store({
     },
     getUser (state) {
       return state.user
+    },
+    getFormError (state) {
+      return state.formHasErrors
     },
     getResponseError (state) {
       return state.responseError

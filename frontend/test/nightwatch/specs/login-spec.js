@@ -7,6 +7,8 @@ module.exports = {
       .assert.elementPresent('.email')
       .assert.elementPresent('.password')
       .assert.elementPresent('.login')
+      .assert.elementNotPresent('.reset')
+      .end()
   },
   
   'Input Invalid Value' : function (browser) {
@@ -17,7 +19,9 @@ module.exports = {
       .click('.login')
       .assert.containsText('.email .input-group__error', 'The email field must be a valid email.')      
       .assert.elementPresent('.password .input-group__error')      
-      .click('.reset')
+      .assert.elementPresent('.reset')
+      .click('.reset').pause(1000)
+      .assert.elementNotPresent('.reset')            
       .assert.value('.email input[type=text]', '')
       .assert.value('.password input[type=password]', '')
       .end()

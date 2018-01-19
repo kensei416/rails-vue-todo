@@ -47,7 +47,7 @@
           <v-slide-x-reverse-transition>
             <v-tooltip
               left
-              v-show="formHasErrors||errorMessage"
+              v-if="formHasErrors||errorMessage"
             >
               <v-btn
                 icon
@@ -80,31 +80,31 @@ export default {
       return{
         $validates: true,
         form: Object.assign({}, defaultForm),
-        formHasErrors: false,
       }
     },
     methods: {
       resetForm () {
-        this.FormHasErrors =  false
         this.form.email = ''
         this.form.password = ''
         this.form.password_confirmation = ''
         this.errors.clear()
+        this.$store.commit('clearErrors')
       },
       signup () {
-        this.formHasErrors = false
+        this.$store.commit('setError', {type: 'formHasErrors', value: false})
 
         this.$validator.validateAll().then((result) => {
           if (result) {
             this.$store.dispatch('signUpUser', this.form)
           } else {
-            this.formHasErrors = true
+             this.$store.commit('setError', {type: 'formHasErrors', value: true})
           }
         })
       }
     },
      computed: mapGetters({
-      errorMessage: 'getResponseError'
+      errorMessage: 'getResponseError',
+      formHasErrors: 'getFormError'
     })
   }
 </script>
