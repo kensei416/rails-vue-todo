@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuites errors="0"
             failures="0"
-            tests="3">
+            tests="4">
 
   <testsuite name="app-spec"
     errors="0" failures="0" hostname="" id="" package="app-spec" skipped="0"
-    tests="3" time="6.459" timestamp="Tue, 16 Jan 2018 03:34:35 GMT">
+    tests="4" time="13.07" timestamp="Fri, 19 Jan 2018 05:19:53 GMT">
   
-    <testcase name="Contents test" classname="app-spec" time="2.912" assertions="1">
+    <testcase name="Contents test" classname="app-spec" time="3.542" assertions="1">
 
     
     </testcase>
   
-    <testcase name="Header test" classname="app-spec" time="2.161" assertions="3">
+    <testcase name="Header test" classname="app-spec" time="2.701" assertions="3">
 
     
 
@@ -21,7 +21,26 @@
     
     </testcase>
   
-    <testcase name="Header Auth test" classname="app-spec" time="1.386" assertions="1">
+    <testcase name="Header Auth check test" classname="app-spec" time="2.707" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Check category forms test" classname="app-spec" time="4.125" assertions="7">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
 
     
     </testcase>

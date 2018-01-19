@@ -24,8 +24,9 @@
             name="password"
             v-model="form.password"
             :error-messages="errors.collect('password')"
-            v-validate="'required|min:8'" 
+            v-validate="'required|max:30|min:6'" 
             data-vv-name="password"
+            :counter="30"
             type="password"
             class="password"
           ></v-text-field>
@@ -34,8 +35,9 @@
             name="password_confirmation"
             v-model="form.password_confirmation"
             :error-messages="errors.collect('password_confirmation')"
-            v-validate="'required|min:8|confirmed:password'"
+            v-validate="'required|max:30|min:6|confirmed:password'"
             data-vv-name="password_confirmation"
+            :counter="30"
             type="password"
             class="password_confirmation"
           ></v-text-field>

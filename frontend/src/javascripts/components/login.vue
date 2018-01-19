@@ -23,8 +23,9 @@
             label="Password"
             v-model="form.password"
             :error-messages="errors.collect('password')"
-            v-validate="'required|min:6'" 
+            v-validate="'required|max:30|min:6'" 
             data-vv-name="password"
+            :counter="30"
             type="password"
             class="password"
           ></v-text-field>
