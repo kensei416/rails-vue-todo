@@ -5,9 +5,9 @@
 
   <testsuite name="signup-spec"
     errors="0" failures="0" hostname="" id="" package="signup-spec" skipped="0"
-    tests="2" time="5.965" timestamp="Fri, 19 Jan 2018 04:39:22 GMT">
+    tests="2" time="9.280" timestamp="Fri, 19 Jan 2018 04:45:08 GMT">
   
-    <testcase name="signup form check test" classname="signup-spec" time="2.260" assertions="5">
+    <testcase name="signup form check test" classname="signup-spec" time="2.714" assertions="5">
 
     
 
@@ -20,7 +20,11 @@
     
     </testcase>
   
-    <testcase name="Input Invalid Value" classname="signup-spec" time="3.705" assertions="7">
+    <testcase name="Input Invalid Value" classname="signup-spec" time="6.566" assertions="9">
+
+    
+
+    
 
     
 

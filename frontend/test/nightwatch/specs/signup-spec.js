@@ -15,7 +15,7 @@ module.exports = {
     browser
     .url('http://localhost:5000/signup').pause(1000)
     .setValue('.email input[type=text]', 'nightwatch')
-    .click('.signup')
+    .click('.signup').pause(1000)
     .assert.containsText('.email .input-group__error', 'The email field must be a valid email.')
     .assert.containsText('.password .input-group__error', 'The password field is required.')
     .assert.containsText('.password_confirmation .input-group__error', 'The password_confirmation field is required.')    
@@ -24,6 +24,13 @@ module.exports = {
     .assert.elementNotPresent('.reset')
     .assert.value('.email input[type=text]', '')
     .assert.value('.password input[type=password]', '')
+    .assert.value('.password_confirmation input[type=password]', '')
+    // check different password
+    .setValue('.email input[type=text]', 'nightwatch')
+    .setValue('.password input[type=password]', 'foobarff')
+    .setValue('.password_confirmation input[type=password]', 'fffoobar')
+    .click('.signup').pause(1000)
+    .assert.containsText('.password_confirmation .input-group__error', 'The password_confirmation confirmation does not match.')
     .end()
   },
 
