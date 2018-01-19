@@ -5,12 +5,14 @@ import App from './App'
 import Router from './router/router'
 import store from './store/store'
 import { sync } from 'vuex-router-sync'
+import VeeValidate from 'vee-validate'
 import axios from 'axios'
 import Cookies from 'js-cookie';
 
 
 
 Vue.use(Vuetify)
+Vue.use(VeeValidate)
 Vue.config.productionTip = false
 
 
@@ -31,11 +33,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
       } else {
         this.navigateTo('/login')
       }
-    },
-    methods: {
-      navigateTo (root) {
-        this.$router.push(root)
-      }
-    },
+    }
   })
 })

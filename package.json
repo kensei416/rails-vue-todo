@@ -4,7 +4,8 @@
   "scripts": {
     "build": "webpack --config ./frontend/config/dev/webpack.config.js",
     "test": "jest",
-    "dev": "webpack-dev-server --config ./frontend/config/dev/webpack.config.js"
+    "dev": "webpack-dev-server --config ./frontend/config/dev/webpack.config.js",
+    "e2e": "nightwatch -c ./nightwatch.json"
   },
   "dependencies": {
     "material-icons": "^0.1.0",
@@ -15,26 +16,23 @@
     "babel-core": "^6.0.0",
     "babel-jest": "^22.0.4",
     "babel-loader": "^6.0.0",
-    "babel-plugin-istanbul": "^4.1.5",
     "babel-plugin-transform-runtime": "^6.0.0",
     "babel-preset-es2015": "^6.0.0",
     "babel-preset-es2016": "^6.24.1",
     "babel-preset-stage-2": "^6.22.0",
     "babel-preset-vue": "^2.0.0",
     "babel-runtime": "^6.0.0",
-    "chai": "^4.1.2",
+    "chromedriver": "^2.34.1",
     "css-loader": "^0.28.7",
     "function-bind": "^1.1.0",
     "jest": "^22.0.4",
     "jest-serializer-vue": "^0.3.0",
     "js-cookie": "^2.2.0",
-    "karma": "^1.3.0",
-    "karma-mocha": "^1.2.0",
-    "karma-phantomjs-launcher": "^1.0.2",
-    "karma-spec-reporter": "0.0.26",
-    "karma-webpack": "^1.8.0",
-    "mocha": "^3.1.0",
+    "nightwatch": "^0.9.19",
+    "phantomjs": "^2.1.7",
+    "selenium-server-standalone-jar": "3.8.1",
     "style-loader": "^0.19.1",
+    "vee-validate": "^2.0.3",
     "vue-html-loader": "^1.2.4",
     "vue-jest": "^1.4.0",
     "vue-loader": "^13.6.2",
@@ -64,8 +62,18 @@
     ],
     "mapCoverage": true,
     "testMatch": [
-      "**/__tests__/**/*.js?(x)",
-      "**/?(*.)(spec).js?(x)"
+      "**/test/jest/**/*.spec.js?(x)"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "./frontend/jest/javascripts/.{js,vue}",
+      "./frontend/jest/javascripts/**/.{js,vue}"
+    ],
+    "coverageDirectory": "./frontend/test/jest/test-repo",
+    "coverageReporters": [
+      "html",
+      "text",
+      "json"
     ]
   }
 }

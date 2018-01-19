@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="2">
+
+  <testsuite name="signup-spec"
+    errors="0" failures="0" hostname="" id="" package="signup-spec" skipped="0"
+    tests="2" time="9.738" timestamp="Fri, 19 Jan 2018 10:24:39 GMT">
+  
+    <testcase name="signup form check test" classname="signup-spec" time="3.141" assertions="5">
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Input Invalid Value" classname="signup-spec" time="6.597" assertions="9">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

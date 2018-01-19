@@ -3,9 +3,9 @@
    <v-layout justify-center>
     <v-flex xs12 sm10 md8 lg6>
       <v-card ref="form">
-        <v-card-title v-show="ReturnErrors" class="red--text">
-         <h1>Your address or user_id is already used </h1>
-        </v-card-title>
+        <v-alert color="error" :value="!!errorMessage" class="error-message">
+          <h1>{{ errorMessage }}</h1>
+        </v-alert>
         <v-card-title >
          <h1>Sign up</h1>
         </v-card-title>
@@ -14,53 +14,54 @@
             label="Email"
             placeholder="Press Your Email"
             v-model="form.email"
-            required
-            type="email"
-            ref="email"
-            :rules="[
-              () => !!form.email || 'This field is required',
-              () => !!form.email.match(/^\S+@\S+\.\S+$/) && form.email.length <= 255 || 'Your Email is Invalid'
-            ]"
-            counter="255"
+            :error-messages="errors.collect('email')"
+            v-validate="'required|email'"
+            data-vv-name="email"
+            class="email"
           ></v-text-field>
           <v-text-field
             label="Password"
+            name="password"
             v-model="form.password"
-            required
+            :error-messages="errors.collect('password')"
+            v-validate="'required|max:30|min:6'" 
+            data-vv-name="password"
+            :counter="30"
             type="password"
-            ref="password"
-            :rules="[() => !!form.password && form.password === form.password_confirmation || 'This field is required']"
+            class="password"
           ></v-text-field>
           <v-text-field
             label="Passoword Confirmation"
+            name="password_confirmation"
             v-model="form.password_confirmation"
-            required
+            :error-messages="errors.collect('password_confirmation')"
+            v-validate="'required|max:30|min:6|confirmed:password'"
+            data-vv-name="password_confirmation"
+            :counter="30"
             type="password"
-            ref="password_confirmation"
-            :rules="[() => !!form.password_confirmation && form.password === form.password_confirmation || 'This field is required']"
+            class="password_confirmation"
           ></v-text-field>
         </v-card-text>
         <v-divider class="mt-5"></v-divider>
         <v-card-actions>
-          <v-btn flat　@click="">Cancel</v-btn>
+          <v-btn color="primary" flat @click="signup" class="signup">SignUp</v-btn>
           <v-spacer></v-spacer>
           <v-slide-x-reverse-transition>
             <v-tooltip
               left
-              v-if="formHasErrors"
+              v-if="formHasErrors||errorMessage"
             >
               <v-btn
                 icon
                 @click="resetForm"
                 slot="activator"
-                class="my-0"
+                class="my-0 reset"
               >
                 <v-icon>refresh</v-icon>
               </v-btn>
               <span>Refresh form</span>
             </v-tooltip>
           </v-slide-x-reverse-transition>
-          <v-btn color="primary" flat @click="submit">Submit</v-btn>
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -68,49 +69,44 @@
   </v-container>
 </template>
 <script>
-import axios from 'axios'
+import { mapGetters } from 'vuex'
 
 export default {
     data () {
-      return{
-        name: '',
+       const defaultForm = Object.freeze({
         email: '',
         password: '',
         password_confirmation: '',
-        formHasErrors: false,
-        ReturnErrors: false
+        formHasErrors: false
+      })
+      return{
+        $validates: true,
+        form: Object.assign({}, defaultForm),
       }
     },
     methods: {
       resetForm () {
-        this.formHasErrors = false
-
-        Object.keys(this.form).forEach(f => {
-          this.$refs[f].reset()
-        })
+        this.form.email = ''
+        this.form.password = ''
+        this.form.password_confirmation = ''
+        this.errors.clear()
+        this.$store.commit('clearErrors')
       },
-      submit () {
-        this.formHasErrors = false
+      signup () {
+        this.$store.commit('setError', {type: 'formHasErrors', value: false})
 
-        Object.keys(this.form).forEach(f => {
-          if (!this.form[f]) this.formHasErrors = true
-
-          this.$refs[f].validate(true)
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            this.$store.dispatch('signUpUser', this.form)
+          } else {
+             this.$store.commit('setError', {type: 'formHasErrors', value: true})
+          }
         })
-
-        if (!this.formHasErrors) {
-          this.$store.dispatch('signUpUser', this.form)
-        }
       }
     },
-    computed: {
-      form () {
-        return {
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.password_confirmation
-        }
-      }
-    }
+     computed: mapGetters({
+      errorMessage: 'getResponseError',
+      formHasErrors: 'getFormError'
+    })
   }
 </script>

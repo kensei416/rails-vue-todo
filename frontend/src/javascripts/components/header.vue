@@ -2,7 +2,7 @@
     <v-toolbar class="cyan accent-3" dark >
       <v-toolbar-title class="white--text">todo</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn flat v-for="item in items" :key="item.icon" @click="navigateTo(item.root)">
+      <v-btn flat v-for="item in items" :class="item.class" :key="item.icon" @click="navigateTo(item.root)">
         <v-icon>{{item.icon}}</v-icon>{{item.title}}
       </v-btn>
       <v-menu
@@ -45,7 +45,7 @@ import axios from 'axios'
   export default {
     data: () => ({
       Geardrop: [
-        { title: '設定', icon: 'settings', root: '/setting' }
+        // { title: '設定', icon: 'settings', root: '/setting' }
       ],
       fav: true,
       menu: false,
@@ -55,9 +55,11 @@ import axios from 'axios'
     methods: {
       navigateTo (root) {
         this.$router.push(root)
+        if (!this.$store.state.isUserLoggedIn)
+          this.$store.commit('clearErrors')
       },
       logout () {
-        this.$store.dispatch('logoutUser', this.user.user_id)
+        this.$store.dispatch('logoutUser', this.user.id)
         this.$router.push('/login')
       }
     },
@@ -70,14 +72,15 @@ import axios from 'axios'
       },
       items () {
         if (this.logged_in) {
-          return [
-            { title: '', icon: 'notifications_none', root: '/account' },
-            { title: '', icon: 'bookmark_border', root: '/contact' }
-          ]
+          // return [
+          //   { title: '', icon: 'notifications_none', root: '/account' },
+          //   { title: '', icon: 'bookmark_border', root: '/contact' }
+          // ]
+          return [{ title: 'Home', icon: 'home', root: '/' }]
         } else {
           return [
-            { title: 'Signup', icon: 'create', root: '/signup' },
-            { title: 'Login', icon: 'lock_open', root: '/login' }
+            { title: 'Signup', icon: 'create', root: '/signup', class: 'signupButton' },
+            { title: 'Login', icon: 'lock_open', root: '/login', class: 'loginButton' }
           ]
         }
       }

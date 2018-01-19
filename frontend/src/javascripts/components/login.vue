@@ -14,29 +14,28 @@
             label="Email"
             placeholder="Press Your Email"
             v-model="form.email"
-            required
-            type="email"
-            ref="email"
-            :rules="[
-              () => !!form.email || 'This field is required',
-              () => !!form.email.match(/^\S+@\S+\.\S+$/) && form.email.length <= 255 || 'Your Email is Invalid'
-            ]"
-            counter="255"
+            :error-messages="errors.collect('email')"
+            v-validate="'required|email'"
+            data-vv-name="email"
+            class="email"
           ></v-text-field>
           <v-text-field
             label="Password"
             v-model="form.password"
-            required
+            :error-messages="errors.collect('password')"
+            v-validate="'required|max:30|min:6'" 
+            data-vv-name="password"
+            :counter="30"
             type="password"
-            ref="password"
-            :rules="[() => !!form.password || 'This field is required']"
+            class="password"
           ></v-text-field>
           <v-checkbox
             color="green"
             ref="checkbox"
-            v-model="remember_me"
+            class="checkbox"
+            v-model="form.remember_me"
           >
-            <div slot="label" @click.stop="">
+            <div slot="label" @click.stop="form.remember_me=!form.remember_me">
               Remember me on this computer
             </div>
           </v-checkbox>
@@ -47,7 +46,7 @@
           <v-slide-x-reverse-transition>
             <v-tooltip
               left
-              v-if="FormHasErrors"
+              v-if="formHasErrors||errorMessage"
             >
               <v-btn
                 icon
@@ -72,58 +71,43 @@
   </v-container>
 </template>
 <script>
-import axios from 'axios'
 import { mapGetters } from 'vuex'
 
 export default {
     data () {
       const defaultForm = Object.freeze({
         email: '',
-        password: ''
+        password: '',
+        remember_me: false
       })
       return{
         form: Object.assign({}, defaultForm),
-        remember_me: 0,
-        FormHasErrors: false,
-        rules: {
-          email: [
-            val => !!val || 'This field is required',
-            val => !!val.match(/^\S+@\S+\.\S+$/) || val.length >= 255 || 'Your Email is Invalid'
-          ],
-          password: [
-            val => !!val || 'This field is required',
-            val => val.length >= 30 || 'Your password is too long'
-          ]
-        }
-       
+        FormHasErrors: false, 
+        $validates: true
       }
     },
     methods: {
       resetForm () {
-        this.FormHasErrors = false
-
-        Object.keys(this.form).forEach(f => {
-          this.$refs[f].reset()
-        })
+        this.form.email = ''
+        this.form.password = ''
+        this.form.remember_me = false
+        this.errors.clear()
+        this.$store.commit('clearErrors')
       },
-       login () {
-        this.FormHasErrors = false
-
-        Object.keys(this.form).forEach(f => {
-          if (!this.form[f]) this.FormHasErrors = true
+      login () {
+         this.$store.commit('setError', {type: 'formHasErrors', value: false})
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            this.$store.dispatch('loginUser', this.form)
+          } else {
+             this.$store.commit('setError', {type: 'formHasErrors', value: true})
+          }
         })
-        if (!this.FormHasErrors) {
-          this.$store.dispatch('loginUser', 
-          {
-            email: this.form.email,
-            password: this.form.password, 
-            remember_me: String(this.remember_me)
-          })
-        }
       }
     },
     computed: mapGetters({
-      errorMessage: 'getError'
+      errorMessage: 'getResponseError',
+      formHasErrors: 'getFormError'
     })
   }
 </script>

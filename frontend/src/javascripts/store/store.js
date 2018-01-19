@@ -11,6 +11,7 @@ function objKey (array, id) {
 
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Router from '../router/router'
 import createPersistedState from 'vuex-persistedstate'
 import axios from 'axios'
 import Cookies from 'js-cookie';
@@ -34,36 +35,44 @@ export default new Vuex.Store({
     current_category: null,
     isUserLoggedIn: false,
     loading: false,
-    errors: ''
+    formHasErrors: false,
+    responseError: ''
   },
   mutations: {
     setUser (state, user) {
       state.user = user
       state.isUserLoggedIn = true
-      state.errors = null
+      state.responseError = null
       state.current_category = null
+      state.formHasErrors = false
     },
     setTasks (state, tasks) {
       state.user.tasks = tasks
     },
-    setErrors (state, errors) {
-      state.errors = errors.response.data.ErrorMesage
+    setRoot (state, root) {
+      console.log('HIT')
+      Router.push(root)
     },
-    setRoot(state, root) {
-      state.route = root
+    setError (state, errorObj) {
+      state[errorObj.type] = errorObj.value
+    },
+    clearErrors (state) {
+      state.responseError = ''
+      state.formHasErrors = false
     },
     logoutUser (state, user) {
       state.user = null
       state.isUserLoggedIn = null
-      state.errors = null
+      state.responseError = null
       state.current_category = null
+      state.formHasErrors = false
     },
-    setLoading (state, payload) {
-      state.loading = payload
+    setLoading (state, loadingState) {
+      state.loading = loadingState
     },
-    toggleTask(state, obj) {
-      let id = objKey(state.user.tasks, obj.id)
-      switch (obj.type) {
+    toggleTask(state, taskObj) {
+      let id = objKey(state.user.tasks, taskObj.id)
+      switch (taskObj.type) {
         case 'is_done': 
           state.user.tasks[id].is_done = !state.user.tasks[id].is_done
           break
@@ -103,42 +112,41 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    setToken ({commit}, token) {
-      commit('setToken', token)
-
-    },
     setUser ({commit}, user) {
       commit('setUser', user)
     },
     async loginUser({commit}, user) {
+      commit('setLoading', true)
       try {
         const response = await axios.post('/api/sessions', 
           { session: { 
             email: user.email, 
             password: user.password,
-            remember_me: user.remember_me
+            remember_me: String(user.remember_me)
           }
         })
           commit('setUser', response.data)
           commit('setRoot', '/')
+          commit('setLoading', false)
       } catch (error) {
-        commit('setErrors', error)
+        commit('setError', {type: 'responseError', value: error.response.data.ErrorMesage})
+        commit('setLoading', false)
       }
     },
     async signUpUser({commit}, user) {
       try {
-        const response = await axios.post('/api/users', 
-          { user: { 
+        const response = await axios.post('/api/users', { 
+            user: { 
               email: user.email,
-              password: user.password, password_confirmation: user.password_confirmation
-          }
+              password: user.password, 
+              password_confirmation: user.password_confirmation
+            }
         })
-          console.log(response.data)
           commit('setUser', response.data)
           commit('setRoot', '/')
       } catch (error) {
-        console.log(error)
-        commit('setErrors', error)
+        console.log('error :' + error)
+        commit('setError', {type: 'responseError', value: error.response.data.ErrorMesage})
       }
     },
     logoutUser({commit}, id) {
@@ -153,7 +161,7 @@ export default new Vuex.Store({
         commit('addCategory', response.data.category)
         commit('setLoading', false)
       } catch (error) {
-        commit('setErrors', error)
+        commit('setError', {type: 'responseError', value: error.response.data.ErrorMesage})
         commit('setLoading', false)
       }
     },
@@ -166,7 +174,7 @@ export default new Vuex.Store({
         commit('deleteTasks', {id: id, type: 'category_id' })
         commit('setLoading', false)
       } catch (error) {
-        commit('setErrors', error)
+        commit('setError', {type: 'responseError', value: error.response.data.ErrorMesage})
         commit('setLoading', false)
       }
     },
@@ -220,7 +228,7 @@ export default new Vuex.Store({
           commit('setLoading', false)
         })
       } catch (error) {
-        commit('setErrors', error)
+        commit('setError', {type: 'responseError', value: error.response.data.ErrorMesage})
         commit('setLoading', false)
       }
     }
@@ -234,8 +242,11 @@ export default new Vuex.Store({
     getUser (state) {
       return state.user
     },
-    getError (state) {
-      return state.errors
+    getFormError (state) {
+      return state.formHasErrors
+    },
+    getResponseError (state) {
+      return state.responseError
     },
     getCategories (state) {
       if (state.user) 
