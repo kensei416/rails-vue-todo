@@ -76,7 +76,7 @@ import { mapGetters } from 'vuex'
 export default {
     data () {
       const defaultForm = Object.freeze({
-        email: '',
+        email: 'foo',
         password: '',
         remember_me: false
       })
@@ -94,12 +94,13 @@ export default {
       },
       login () {
         this.$store.commit('setError', {type: 'formHasErrors', value: false})
-        this.$validator.validateAll()
-        if (!this.errors.items.length) {
-          this.$store.dispatch('loginUser', this.form)
-        } else {
-            this.$store.commit('setError', {type: 'formHasErrors', value: true})
-        }
+        this.$validator.validateAll().then((result) => {
+          if (result) {
+            this.$store.dispatch('loginUser', this.form)
+          } else {
+             this.$store.commit('setError', {type: 'formHasErrors', value: true})
+          }
+        })
       }
     },
     computed: mapGetters({

@@ -24,6 +24,7 @@
     "babel-runtime": "^6.0.0",
     "chromedriver": "^2.34.1",
     "css-loader": "^0.28.7",
+    "flush-promises": "^1.0.0",
     "function-bind": "^1.1.0",
     "jest": "^22.0.4",
     "jest-serializer-vue": "^0.3.0",

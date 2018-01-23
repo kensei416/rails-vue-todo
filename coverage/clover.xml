@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1516677034975" clover="3.2.0">
+  <project timestamp="1516677034975" name="All files">
+    <metrics statements="179" coveredstatements="71" conditionals="18" coveredconditionals="2" methods="24" coveredmethods="13" elements="221" coveredelements="86" complexity="0" loc="179" ncloc="179" packages="4" files="4" classes="4">
+      <package name="root">
+        <metrics statements="11" coveredstatements="4" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="0"/>
+        <file name="unknown" path="unknown">
+          <metrics statements="11" coveredstatements="4" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="0"/>
+          <line num="46" count="1" type="stmt"/>
+          <line num="57" count="1" type="stmt"/>
+          <line num="58" count="0" type="cond" truecount="1" falsecount="1"/>
+          <line num="59" count="0" type="stmt"/>
+          <line num="62" count="0" type="stmt"/>
+          <line num="63" count="0" type="stmt"/>
+          <line num="68" count="0" type="stmt"/>
+          <line num="71" count="1" type="stmt"/>
+          <line num="74" count="0" type="cond" truecount="1" falsecount="1"/>
+          <line num="79" count="1" type="stmt"/>
+          <line num="81" count="0" type="stmt"/>
+        </file>
+      </package>
+      <package name="root.Users.kensei.program.ruby.todo-app-v2.frontend.test.jest.App">
+        <metrics statements="45" coveredstatements="45" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
+        <file name="App.spec.js" path="/Users/kensei/program/ruby/todo-app-v2/frontend/test/jest/App/App.spec.js">
+          <metrics statements="45" coveredstatements="45" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="7"/>
+          <line num="5" count="1" type="stmt"/>
+          <line num="7" count="1" type="stmt"/>
+          <line num="9" count="1" type="stmt"/>
+          <line num="14" count="1" type="stmt"/>
+          <line num="15" count="3" type="stmt"/>
+          <line num="21" count="3" type="stmt"/>
+          <line num="22" count="3" type="stmt"/>
+          <line num="23" count="3" type="stmt"/>
+          <line num="30" count="3" type="stmt"/>
+          <line num="37" count="1" type="stmt"/>
+          <line num="38" count="1" type="stmt"/>
+          <line num="39" count="1" type="stmt"/>
+          <line num="40" count="1" type="stmt"/>
+          <line num="41" count="1" type="stmt"/>
+          <line num="42" count="1" type="stmt"/>
+          <line num="43" count="1" type="stmt"/>
+          <line num="46" count="1" type="stmt"/>
+          <line num="47" count="1" type="stmt"/>
+          <line num="48" count="1" type="stmt"/>
+          <line num="49" count="1" type="stmt"/>
+          <line num="50" count="1" type="stmt"/>
+          <line num="51" count="1" type="stmt"/>
+          <line num="52" count="1" type="stmt"/>
+          <line num="53" count="1" type="stmt"/>
+          <line num="54" count="1" type="stmt"/>
+          <line num="55" count="1" type="stmt"/>
+          <line num="56" count="1" type="stmt"/>
+          <line num="59" count="1" type="stmt"/>
+          <line num="60" count="1" type="stmt"/>
+          <line num="61" count="1" type="stmt"/>
+          <line num="62" count="1" type="stmt"/>
+          <line num="65" count="1" type="stmt"/>
+          <line num="66" count="1" type="stmt"/>
+          <line num="67" count="1" type="stmt"/>
+          <line num="70" count="1" type="stmt"/>
+          <line num="71" count="1" type="stmt"/>
+          <line num="72" count="1" type="stmt"/>
+          <line num="73" count="1" type="stmt"/>
+          <line num="76" count="1" type="stmt"/>
+          <line num="77" count="1" type="stmt"/>
+          <line num="78" count="1" type="stmt"/>
+          <line num="79" count="1" type="stmt"/>
+          <line num="80" count="1" type="stmt"/>
+          <line num="81" count="1" type="stmt"/>
+          <line num="82" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="root.Users.kensei.program.ruby.todo-app-v2.frontend.test.jest.Login">
+        <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+        <file name="login.spec.js" path="/Users/kensei/program/ruby/todo-app-v2/frontend/test/jest/Login/login.spec.js">
+          <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+          <line num="6" count="1" type="stmt"/>
+          <line num="7" count="1" type="stmt"/>
+          <line num="9" count="1" type="stmt"/>
+          <line num="10" count="1" type="stmt"/>
+          <line num="12" count="1" type="stmt"/>
+          <line num="18" count="1" type="stmt"/>
+          <line num="19" count="1" type="stmt"/>
+          <line num="23" count="1" type="stmt"/>
+          <line num="27" count="1" type="stmt"/>
+          <line num="33" count="1" type="stmt"/>
+          <line num="34" count="1" type="stmt"/>
+          <line num="35" count="1" type="stmt"/>
+          <line num="36" count="1" type="stmt"/>
+          <line num="37" count="1" type="stmt"/>
+          <line num="38" count="1" type="stmt"/>
+          <line num="41" count="1" type="stmt"/>
+          <line num="42" count="1" type="stmt"/>
+        </file>
+      </package>
+      <package name="root.Users.kensei.program.ruby.todo-app-v2.frontend.test.jest.store">
+        <metrics statements="106" coveredstatements="5" conditionals="14" coveredconditionals="0" methods="12" coveredmethods="2"/>
+        <file name="store_test.js" path="/Users/kensei/program/ruby/todo-app-v2/frontend/test/jest/store/store_test.js">
+          <metrics statements="106" coveredstatements="5" conditionals="14" coveredconditionals="0" methods="12" coveredmethods="2"/>
+          <line num="2" count="0" type="stmt"/>
+          <line num="5" count="0" type="stmt"/>
+          <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="7" count="0" type="stmt"/>
+          <line num="20" count="2" type="stmt"/>
+          <line num="27" count="0" type="stmt"/>
+          <line num="28" count="2" type="stmt"/>
+          <line num="29" count="2" type="stmt"/>
+          <line num="43" count="0" type="stmt"/>
+          <line num="44" count="0" type="stmt"/>
+          <line num="45" count="0" type="stmt"/>
+          <line num="46" count="0" type="stmt"/>
+          <line num="47" count="0" type="stmt"/>
+          <line num="50" count="0" type="stmt"/>
+          <line num="53" count="0" type="stmt"/>
+          <line num="54" count="0" type="stmt"/>
+          <line num="57" count="0" type="stmt"/>
+          <line num="60" count="0" type="stmt"/>
+          <line num="61" count="0" type="stmt"/>
+          <line num="64" count="0" type="stmt"/>
+          <line num="65" count="0" type="stmt"/>
+          <line num="66" count="0" type="stmt"/>
+          <line num="67" count="0" type="stmt"/>
+          <line num="68" count="0" type="stmt"/>
+          <line num="71" count="0" type="stmt"/>
+          <line num="74" count="0" type="stmt"/>
+          <line num="75" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="77" count="0" type="stmt"/>
+          <line num="78" count="0" type="stmt"/>
+          <line num="80" count="0" type="stmt"/>
+          <line num="81" count="0" type="stmt"/>
+          <line num="85" count="0" type="stmt"/>
+          <line num="94" count="0" type="stmt"/>
+          <line num="97" count="0" type="stmt"/>
+          <line num="101" count="0" type="stmt"/>
+          <line num="104" count="0" type="stmt"/>
+          <line num="107" count="0" type="stmt"/>
+          <line num="108" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="109" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="110" count="0" type="stmt"/>
+          <line num="116" count="0" type="stmt"/>
+          <line num="119" count="0" type="stmt"/>
+          <line num="120" count="0" type="stmt"/>
+          <line num="121" count="0" type="stmt"/>
+          <line num="128" count="0" type="stmt"/>
+          <line num="129" count="0" type="stmt"/>
+          <line num="130" count="0" type="stmt"/>
+          <line num="132" count="0" type="stmt"/>
+          <line num="133" count="0" type="stmt"/>
+          <line num="137" count="0" type="stmt"/>
+          <line num="138" count="0" type="stmt"/>
+          <line num="145" count="0" type="stmt"/>
+          <line num="146" count="0" type="stmt"/>
+          <line num="148" count="0" type="stmt"/>
+          <line num="149" count="0" type="stmt"/>
+          <line num="153" count="0" type="stmt"/>
+          <line num="154" count="0" type="stmt"/>
+          <line num="157" count="0" type="stmt"/>
+          <line num="158" count="0" type="stmt"/>
+          <line num="159" count="0" type="stmt"/>
+          <line num="161" count="0" type="stmt"/>
+          <line num="162" count="0" type="stmt"/>
+          <line num="164" count="0" type="stmt"/>
+          <line num="165" count="0" type="stmt"/>
+          <line num="169" count="0" type="stmt"/>
+          <line num="170" count="0" type="stmt"/>
+          <line num="171" count="0" type="stmt"/>
+          <line num="172" count="0" type="stmt"/>
+          <line num="173" count="0" type="stmt"/>
+          <line num="174" count="0" type="stmt"/>
+          <line num="175" count="0" type="stmt"/>
+          <line num="177" count="0" type="stmt"/>
+          <line num="178" count="0" type="stmt"/>
+          <line num="182" count="0" type="stmt"/>
+          <line num="183" count="0" type="stmt"/>
+          <line num="184" count="0" type="stmt"/>
+          <line num="185" count="0" type="stmt"/>
+          <line num="186" count="0" type="stmt"/>
+          <line num="187" count="0" type="stmt"/>
+          <line num="195" count="0" type="stmt"/>
+          <line num="196" count="0" type="stmt"/>
+          <line num="200" count="0" type="stmt"/>
+          <line num="201" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="202" count="0" type="stmt"/>
+          <line num="205" count="0" type="stmt"/>
+          <line num="206" count="0" type="stmt"/>
+          <line num="208" count="0" type="stmt"/>
+          <line num="211" count="0" type="stmt"/>
+          <line num="214" count="0" type="stmt"/>
+          <line num="216" count="0" type="stmt"/>
+          <line num="221" count="0" type="stmt"/>
+          <line num="222" count="0" type="stmt"/>
+          <line num="223" count="0" type="stmt"/>
+          <line num="227" count="0" type="stmt"/>
+          <line num="228" count="0" type="stmt"/>
+          <line num="231" count="0" type="stmt"/>
+          <line num="232" count="0" type="stmt"/>
+          <line num="240" count="0" type="stmt"/>
+          <line num="243" count="0" type="stmt"/>
+          <line num="246" count="1" type="stmt"/>
+          <line num="249" count="1" type="stmt"/>
+          <line num="252" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="253" count="0" type="stmt"/>
+          <line num="256" count="0" type="cond" truecount="0" falsecount="2"/>
+          <line num="257" count="0" type="stmt"/>
+          <line num="260" count="0" type="stmt"/>
+        </file>
+      </package>
+    </metrics>
+  </project>
+</coverage>
