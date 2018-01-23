@@ -1,20 +1,22 @@
 import { shallow, createLocalVue } from 'vue-test-utils'
 import Vuex from 'vuex'
+import VeeValidate from 'vee-validate'
 import Login from '../../../src/javascripts/components/login.vue'
 import module from '../store/store_test'
 const localVue = createLocalVue()
 
-
+localVue.use(VeeValidate)
 localVue.use(Vuex)
 
 describe('Modules.vue', () => {
   let actions
+  let mutations
   let store
   let getters
   let state
   beforeEach(() =>{
     state = {
-      user: null,
+      formHasErrors: false,
       isUserLoggedIn: false
     }
 
@@ -22,9 +24,14 @@ describe('Modules.vue', () => {
       loginUser: jest.fn()
     }
 
+    mutations = {
+      setError: jest.fn()
+    }
+
     store = new Vuex.Store({
       state,
       actions,
+      mutations,
       getters: module.getters
     })
   })
@@ -33,21 +40,20 @@ describe('Modules.vue', () => {
     const wrapper = shallow(Login, { store, localVue })
     const vm = wrapper.vm
     const login = wrapper.find('.login')
-
-    // #empty email, password
+    
+    // // empty email, password
     login.trigger('click')
-    expect(vm.FormHasErrors).toBe(true)
-
-    // #empty email
+    expect(mutations.setError).toHaveBeenCalled()
+    // empty email
     vm.form.password ="foobar"
     login.trigger('click')
-    expect(vm.FormHasErrors).toBe(true)
+    expect(mutations.setError).toHaveBeenCalled()
 
-    // #password empty
+    // password empty
     vm.form.email = "kensei416@gmail.com"
     vm.form.password = ""
     login.trigger('click')
-    expect(vm.FormHasErrors).toBe(true)
+    expect(mutations.setError).toHaveBeenCalled()
   })
 
   it ('Valid data should be logged_in', () => {
@@ -57,7 +63,7 @@ describe('Modules.vue', () => {
     vm.form.email = "kensei416@gmail.com"
     vm.form.password ="foobar"
     login.trigger('click')
-    expect(vm.FormHasErrors).toBe(false)
+    // expect(vm.formHasErrors).toBe(false)
     expect(actions.loginUser).toHaveBeenCalled()
   })
 

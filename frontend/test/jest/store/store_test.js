@@ -1,5 +1,5 @@
-function remove(array, id) {
-  return array.filter(e => e.id !== id);
+function remove(array, id, type) {
+  return array.filter(e => e[type] !== id);
 }
 function objKey (array, id) {
   for (let key in array) {
@@ -11,55 +11,68 @@ function objKey (array, id) {
 
 import Vue from 'vue'
 import Vuex from 'vuex'
+// import Router from '../../../src/javascripts/router/router'
+import createPersistedState from 'vuex-persistedstate'
 import axios from 'axios'
-import Cookies from 'js-cookie';
+import Cookies from 'js-cookie'
 
 
 Vue.use(Vuex)
 
 export default {
+   strict: true,
+  plugins: [
+    createPersistedState({
+      storage: {
+        getItem: key => Cookies.get(key),
+        setItem: (key, value) => Cookies.set(key, value, { expires: 3, secure: true }),
+        removeItem: key => Cookies.remove(key)
+      }
+    })
+  ],
   state: {
-    token: null,
     user: null,
-    current_category: { title: "Inbox", id: 1},
+    current_category: null,
     isUserLoggedIn: false,
     loading: false,
-    errors: ''
+    formHasErrors: false,
+    responseError: ''
   },
   mutations: {
-    setToken (state, token) {
-      state.token = token
-      if (token) {
-        state.isUserLoggedIn = true
-      } else {
-        state.isUserLoggedIn = false
-      }
-    },
     setUser (state, user) {
       state.user = user
       state.isUserLoggedIn = true
-      state.errors = null
-      state.current_category = { title: 'Inbox', id: 1 }
+      state.responseError = null
+      state.current_category = null
+      state.formHasErrors = false
     },
     setTasks (state, tasks) {
       state.user.tasks = tasks
     },
-    setErrors (state, errors) {
-      console.log(errors.response.data.ErrorMesage)
-      state.errors = errors.response.data.ErrorMesage
+    setRoot (state, root) {
+      console.log('HIT')
+      Router.push(root)
+    },
+    setError (state, errorObj) {
+      state[errorObj.type] = errorObj.value
+    },
+    clearErrors (state) {
+      state.responseError = ''
+      state.formHasErrors = false
     },
     logoutUser (state, user) {
       state.user = null
       state.isUserLoggedIn = null
-      state.errors = null
+      state.responseError = null
       state.current_category = null
+      state.formHasErrors = false
     },
-    setLoading (state, payload) {
-      state.loading = payload
+    setLoading (state, loadingState) {
+      state.loading = loadingState
     },
-    toggleTask(state, obj) {
-      let id = objKey(state.user.tasks, obj.id)
-      switch (obj.type) {
+    toggleTask(state, taskObj) {
+      let id = objKey(state.user.tasks, taskObj.id)
+      switch (taskObj.type) {
         case 'is_done': 
           state.user.tasks[id].is_done = !state.user.tasks[id].is_done
           break
@@ -67,7 +80,6 @@ export default {
           state.user.tasks[id].fav = !state.user.tasks[id].fav
           break
       }
-      
     },
     AddTask(state, payload) {
       state.user.tasks.push({
@@ -77,10 +89,9 @@ export default {
         fav: payload.fav,
         category_id: payload.category_id
       })
-      console.log(state.user.tasks)
     },
-    setRoot(state, root) {
-      state.route = root
+    deleteTasks(state, payload) {
+      state.user.tasks = remove(state.user.tasks, payload.id, payload.type)
     },
     setCurrentCategory(state, category) {
       category = {
@@ -93,46 +104,49 @@ export default {
       state.user.categories.push(category)
     },
     deleteCategory (state, id) {
-      state.user.categories = remove(state.user.categories, id)
+      state.user.categories = remove(state.user.categories, id, 'id')
+      if (state.current_category !== null)
+        if (id === state.current_category.id ) {
+          state.current_category = null
+        }
     }
   },
   actions: {
-    setToken ({commit}, token) {
-      commit('setToken', token)
-
-    },
     setUser ({commit}, user) {
       commit('setUser', user)
     },
     async loginUser({commit}, user) {
+      commit('setLoading', true)
       try {
         const response = await axios.post('/api/sessions', 
           { session: { 
             email: user.email, 
             password: user.password,
-            remember_me: user.remember_me
+            remember_me: String(user.remember_me)
           }
         })
           commit('setUser', response.data)
           commit('setRoot', '/')
+          commit('setLoading', false)
       } catch (error) {
-        commit('setErrors', error)
+        commit('setError', {type: 'responseError', value: error.response.data.ErrorMesage})
+        commit('setLoading', false)
       }
     },
     async signUpUser({commit}, user) {
       try {
-        const response = await axios.post('/api/users', 
-          { user: { 
-              email: user.email, user_id: user.user_id, 
-              password: user.password, password_confirmation: user.password_confirmation
-          }
+        const response = await axios.post('/api/users', { 
+            user: { 
+              email: user.email,
+              password: user.password, 
+              password_confirmation: user.password_confirmation
+            }
         })
-          console.log(response)
           commit('setUser', response.data)
           commit('setRoot', '/')
       } catch (error) {
-        console.log(error)
-        commit('setErrors', error)
+        console.log('error :' + error)
+        commit('setError', {type: 'responseError', value: error.response.data.ErrorMesage})
       }
     },
     logoutUser({commit}, id) {
@@ -147,18 +161,20 @@ export default {
         commit('addCategory', response.data.category)
         commit('setLoading', false)
       } catch (error) {
-        commit('setErrors', error)
+        commit('setError', {type: 'responseError', value: error.response.data.ErrorMesage})
         commit('setLoading', false)
       }
     },
     DeleteCategory({commit, state}, id) {
       commit('setLoading', true)
+      console.log(id)
       try {
         axios.delete(`/api/categories/${id}`)
         commit('deleteCategory', id)
+        commit('deleteTasks', {id: id, type: 'category_id' })
         commit('setLoading', false)
       } catch (error) {
-        commit('setErrors', error)
+        commit('setError', {type: 'responseError', value: error.response.data.ErrorMesage})
         commit('setLoading', false)
       }
     },
@@ -187,6 +203,7 @@ export default {
             { task: { is_done: !state.user.tasks[id].is_done } })
               .then((response) => {
                 commit('toggleTask', payload)
+                commit('deleteTasks', {id: payload.id, type: 'id'})
               }, (error) => {
                 console.log(error)
               })
@@ -211,7 +228,7 @@ export default {
           commit('setLoading', false)
         })
       } catch (error) {
-        commit('setErrors', error)
+        commit('setError', {type: 'responseError', value: error.response.data.ErrorMesage})
         commit('setLoading', false)
       }
     }
@@ -225,8 +242,11 @@ export default {
     getUser (state) {
       return state.user
     },
-    getError (state) {
-      return state.errors
+    getFormError (state) {
+      return state.formHasErrors
+    },
+    getResponseError (state) {
+      return state.responseError
     },
     getCategories (state) {
       if (state.user) 

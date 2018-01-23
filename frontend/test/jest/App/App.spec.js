@@ -1,7 +1,7 @@
 import { shallow, createLocalVue } from 'vue-test-utils'
 import Vuex from 'vuex'
 import App from '../../../src/javascripts/App.vue'
-import store from '../../../src/javascripts/store/store.js'
+import module from '../store/store_test'
 const localVue = createLocalVue()
 
 localVue.use(Vuex)
