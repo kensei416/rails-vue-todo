@@ -24,5 +24,4 @@
 /yarn-error.log
 
 .byebug_history
-/frontend/test/jest/test-repo/
-
+frontend/test/jest/test-repo/
