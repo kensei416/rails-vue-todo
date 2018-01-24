@@ -81,9 +81,7 @@ export default {
         remember_me: false
       })
       return{
-        form: Object.assign({}, defaultForm),
-        FormHasErrors: false, 
-        $validates: true
+        form: Object.assign({}, defaultForm)
       }
     },
     methods: {
@@ -95,19 +93,22 @@ export default {
         this.$store.commit('clearErrors')
       },
       login () {
-         this.$store.commit('setError', {type: 'formHasErrors', value: false})
-        this.$validator.validateAll().then((result) => {
+        this.$store.commit('setError', {type: 'formHasErrors', value: false})
+        this.$validator.validateAll().then(result => {
           if (result) {
             this.$store.dispatch('loginUser', this.form)
           } else {
-             this.$store.commit('setError', {type: 'formHasErrors', value: true})
+            this.$store.commit('setError', {type: 'formHasErrors', value: true})
           }
         })
       }
     },
-    computed: mapGetters({
+    computed: {
+      ...mapGetters({
       errorMessage: 'getResponseError',
       formHasErrors: 'getFormError'
-    })
+      }),
+      
+    }
   }
 </script>

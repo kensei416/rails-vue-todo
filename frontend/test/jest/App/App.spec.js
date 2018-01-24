@@ -1,7 +1,8 @@
 import { shallow, createLocalVue } from 'vue-test-utils'
 import Vuex from 'vuex'
 import App from '../../../src/javascripts/App.vue'
-import store from '../../../src/javascripts/store/store.js'
+import module from '../../__mock__/store/store_test.js'
+import { createRenderer } from 'vue-server-renderer'
 const localVue = createLocalVue()
 
 localVue.use(Vuex)
@@ -30,7 +31,7 @@ describe('App', () => {
     store = new Vuex.Store({
       state: {},
       actions,
-      getters
+      getters: getters
     })
   })
   

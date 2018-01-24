@@ -5,56 +5,14 @@
 
   <testsuite name="app-spec"
     errors="0" failures="0" hostname="" id="" package="app-spec" skipped="0"
-    tests="5" time="21.65" timestamp="Fri, 19 Jan 2018 10:23:54 GMT">
+    tests="5" time="26.32" timestamp="Wed, 24 Jan 2018 06:20:11 GMT">
   
-    <testcase name="Contents test" classname="app-spec" time="3.281" assertions="1">
+    <testcase name="Contents test" classname="app-spec" time="4.199" assertions="1">
 
     
     </testcase>
   
-    <testcase name="Header test" classname="app-spec" time="2.264" assertions="3">
-
-    
-
-    
-
-    
-    </testcase>
-  
-    <testcase name="Header Auth check test" classname="app-spec" time="2.490" assertions="2">
-
-    
-
-    
-    </testcase>
-  
-    <testcase name="Check category forms test" classname="app-spec" time="5.993" assertions="16">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
+    <testcase name="Header test" classname="app-spec" time="3.924" assertions="3">
 
     
 
@@ -63,7 +21,49 @@
     
     </testcase>
   
-    <testcase name="Check task forms test" classname="app-spec" time="7.622" assertions="10">
+    <testcase name="Header Auth check test" classname="app-spec" time="2.428" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Check category forms test" classname="app-spec" time="5.564" assertions="16">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Check task forms test" classname="app-spec" time="10.21" assertions="10">
 
     
 

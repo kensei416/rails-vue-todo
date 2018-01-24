@@ -38,7 +38,7 @@
               Cancel
             </v-btn>
           </v-list-tile>
-          <v-list-tile @click="dialog=true" class="red--text open-dialog" v-show="dialog===false">
+          <v-list-tile @click="dialog=true" class="open-dialog" v-show="dialog===false">
            <v-list-tile-action>
              <v-icon>add</v-icon>
            </v-list-tile-action>
