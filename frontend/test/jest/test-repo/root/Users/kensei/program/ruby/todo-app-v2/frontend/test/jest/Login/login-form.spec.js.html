@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for root/Users/kensei/program/ruby/todo-app-v2/frontend/test/jest/Login/login.spec.js</title>
+    <title>Code coverage report for root/Users/kensei/program/ruby/todo-app-v2/frontend/test/jest/Login/login-form.spec.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../../../../../../base.css" />
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../../../../../../../../../index.html">All files</a> / <a href="index.html">root/Users/kensei/program/ruby/todo-app-v2/frontend/test/jest/Login</a> login.spec.js
+      <a href="../../../../../../../../../../index.html">All files</a> / <a href="index.html">root/Users/kensei/program/ruby/todo-app-v2/frontend/test/jest/Login</a> login-form.spec.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>55/55</span>
+        <span class='fraction'>63/63</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>6/6</span>
+        <span class='fraction'>8/8</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>55/55</span>
+        <span class='fraction'>63/63</span>
       </div>
     </div>
   </div>
@@ -141,7 +141,23 @@
 96
 97
 98
-99</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,8 +169,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,6 +193,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -228,6 +252,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -243,20 +271,25 @@
 import Vuex from 'vuex'
 import VeeValidate from 'vee-validate'
 import { Validator } from 'vee-validate'
+// import Login from '../../__mock__/components/login-test.vue'
 import Login from '../../../src/javascripts/components/login.vue'
-import module from '../store/store_test'
+import module from '../../__mock__/store/store_test.js'
+import flushPromises from 'flush-promises'
 const localVue = createLocalVue()
 &nbsp;
 &nbsp;
 localVue.use(Vuex)
 localVue.use(VeeValidate)
+jest.setTimeout(10000)
 jest.useFakeTimers()
+&nbsp;
 &nbsp;
 describe('Modules.vue', () =&gt; {
   let mutations
   let actions
   let store
   let state
+  let getters
   beforeEach(() =&gt;{
     state = {
       user: null,
@@ -271,11 +304,16 @@ describe('Modules.vue', () =&gt; {
       loginUser: jest.fn()
     }
 &nbsp;
+    getters = {
+      getResponseError: () =&gt; '',
+      getFormError: () =&gt; false
+    }
+&nbsp;
     store = new Vuex.Store({
       state,
       mutations,
       actions,
-      getters: module.getters
+      getters
     })
   })
 &nbsp;
@@ -326,13 +364,17 @@ describe('Modules.vue', () =&gt; {
     expect(vm.errors.count()).toBe(1)
   })
 &nbsp;
-  it ('Input Valid form data', () =&gt; {
+  it ('Input Valid form data', async () =&gt; {
     const wrapper = shallow(Login, { store, localVue })
     const vm = wrapper.vm
     const login = wrapper.find('.login')
     vm.form.email = "kensei416@gmail.com"
     vm.form.password ="foobar"
     login.trigger('click')
+    await flushPromises()
+    expect(mutations.setError).toHaveBeenCalled()
+    expect(actions.loginUser).toHaveBeenCalled()
+    expect(Object.keys(actions.loginUser.mock.calls[0][1]).length).toBe(3)
     expect(vm.errors.count()).toBe(0)
   })
 &nbsp;
@@ -343,7 +385,7 @@ describe('Modules.vue', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Jan 23 2018 18:39:22 GMT+0900 (JST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Jan 24 2018 15:25:41 GMT+0900 (JST)
 </div>
 </div>
 <script src="../../../../../../../../../../prettify.js"></script>

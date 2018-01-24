@@ -20,7 +20,7 @@ import Cookies from 'js-cookie'
 Vue.use(Vuex)
 
 export default {
-   strict: true,
+  strict: true,
   plugins: [
     createPersistedState({
       storage: {

@@ -1,7 +1,7 @@
 import { shallow, createLocalVue } from 'vue-test-utils'
 import Vuex from 'vuex'
 import App from '../../../src/javascripts/App.vue'
-import module from '../store/store_test'
+import module from '../../__mock__/store/store_test.js'
 import { createRenderer } from 'vue-server-renderer'
 const localVue = createLocalVue()
 
