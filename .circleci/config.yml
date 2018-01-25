@@ -10,6 +10,17 @@ jobs:
        - image: starefossen/ruby-node:latest
     steps:
       - checkout
+      - run: apt-get -y install sudo
+      - run: sudo apt-get -y install software-properties-common
+      - run: sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+      - run: sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+      - run: sudo apt-get -y update
+      - run: sudo apt-get -y --allow-unauthenticated install google-chrome-stable
+      - run: sudo apt-get install -y openjdk-8-jdk
+      # - run: 
+      #     |
+      #     sudo apt-get -y  --allow-unauthenticated install oracle-java8-installer
+      #     echo yes
 
       # Download and cache dependencies
       - restore_cache:
@@ -40,8 +51,9 @@ jobs:
           name: run tests
           command: |
             bundle exec rake test 
-            npm test
+            npm run unit
             bundle exec rails s -d 
+            # npm run e2e --verbose
             kill `cat tmp/pids/server.pid`
 
 

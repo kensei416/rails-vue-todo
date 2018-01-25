@@ -5,9 +5,9 @@
 
   <testsuite name="login-spec"
     errors="0" failures="0" hostname="" id="" package="login-spec" skipped="0"
-    tests="6" time="20.94" timestamp="Wed, 24 Jan 2018 06:20:37 GMT">
+    tests="6" time="42.70" timestamp="Thu, 25 Jan 2018 05:20:15 GMT">
   
-    <testcase name="login form check test" classname="login-spec" time="2.957" assertions="4">
+    <testcase name="login form check test" classname="login-spec" time="5.223" assertions="4">
 
     
 
@@ -18,7 +18,7 @@
     
     </testcase>
   
-    <testcase name="Input Invalid Value" classname="login-spec" time="4.206" assertions="6">
+    <testcase name="Input Invalid Value" classname="login-spec" time="9.299" assertions="6">
 
     
 
@@ -33,19 +33,19 @@
     
     </testcase>
   
-    <testcase name="Input Invalid Email &amp; Password" classname="login-spec" time="2.910" assertions="2">
+    <testcase name="Input Invalid Email &amp; Password" classname="login-spec" time="9.037" assertions="2">
 
     
 
     
     </testcase>
   
-    <testcase name="Input Valid Email &amp; Password" classname="login-spec" time="2.859" assertions="1">
+    <testcase name="Input Valid Email &amp; Password" classname="login-spec" time="5.799" assertions="1">
 
     
     </testcase>
   
-    <testcase name="When check box is set Check Cookies" classname="login-spec" time="4.427" assertions="4">
+    <testcase name="When check box is set Check Cookies" classname="login-spec" time="7.878" assertions="4">
 
     
 
@@ -56,7 +56,7 @@
     
     </testcase>
   
-    <testcase name="When check box is unset value " classname="login-spec" time="3.584" assertions="2">
+    <testcase name="When check box is unset value " classname="login-spec" time="5.466" assertions="2">
 
     
 

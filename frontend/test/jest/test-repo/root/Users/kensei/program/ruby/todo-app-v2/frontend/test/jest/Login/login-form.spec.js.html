@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>63/63</span>
+        <span class='fraction'>66/66</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>63/63</span>
+        <span class='fraction'>66/66</span>
       </div>
     </div>
   </div>
@@ -155,8 +155,11 @@
 110
 111
 112
-113</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+113
+114
+115
+116
+117</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -219,6 +222,23 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -236,18 +256,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -271,7 +279,6 @@
 import Vuex from 'vuex'
 import VeeValidate from 'vee-validate'
 import { Validator } from 'vee-validate'
-// import Login from '../../__mock__/components/login-test.vue'
 import Login from '../../../src/javascripts/components/login.vue'
 import module from '../../__mock__/store/store_test.js'
 import flushPromises from 'flush-promises'
@@ -326,8 +333,9 @@ describe('Modules.vue', () =&gt; {
     expect(vm.errors.count()).toBe(0)
     expect(mutations.setError.mock.calls.length).toBe(0)
     login.trigger('click')
-    await expect(mutations.setError).toHaveBeenCalled()
-    expect(mutations.setError.mock.calls.length).toBe(1)
+    await flushPromises()
+    expect(mutations.setError).toHaveBeenCalled()
+    expect(mutations.setError.mock.calls.length).toBe(2)
     expect(vm.errors.items[0].field).toBe('email')
     expect(vm.errors.items[1].field).toBe('password')
     expect(vm.errors.count()).toBe(2)
@@ -342,8 +350,9 @@ describe('Modules.vue', () =&gt; {
     expect(mutations.setError.mock.calls.length).toBe(0)
     vm.form.password ="foobar"
     login.trigger('click')
-    await expect(mutations.setError).toHaveBeenCalled()
-    expect(mutations.setError.mock.calls.length).toBe(1)
+    await flushPromises()
+    expect(mutations.setError).toHaveBeenCalled()
+    expect(mutations.setError.mock.calls.length).toBe(2)
     expect(vm.errors.items[0].field).toBe('email')
     expect(vm.errors.count()).toBe(1)
   })
@@ -358,8 +367,11 @@ describe('Modules.vue', () =&gt; {
     vm.form.email = "kensei416@gmail.com"
     vm.form.password = ""
     login.trigger('click')
-    await expect(mutations.setError).toHaveBeenCalled()
-    expect(mutations.setError.mock.calls.length).toBe(1)
+    await flushPromises()
+    expect(mutations.setError).toHaveBeenCalled()
+    expect(mutations.setError.mock.calls.length).toBe(2)
+    
+&nbsp;
     expect(vm.errors.items[0].field).toBe('password')
     expect(vm.errors.count()).toBe(1)
   })
@@ -385,7 +397,7 @@ describe('Modules.vue', () =&gt; {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Jan 24 2018 15:25:41 GMT+0900 (JST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Jan 25 2018 12:15:50 GMT+0900 (JST)
 </div>
 </div>
 <script src="../../../../../../../../../../prettify.js"></script>

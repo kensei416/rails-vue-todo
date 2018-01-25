@@ -3,12 +3,14 @@
   "private": true,
   "scripts": {
     "build": "webpack --config ./frontend/config/dev/webpack.config.js",
-    "test": "jest",
+    "unit": "jest",
     "dev": "webpack-dev-server --config ./frontend/config/dev/webpack.config.js",
-    "e2e": "nightwatch -c ./nightwatch.json"
+    "e2e": "nightwatch -c nightwatch.json",
+    "test": "npm run unit && npm run e2e"
   },
   "dependencies": {
     "material-icons": "^0.1.0",
+    "selenium-webdriver": "^4.0.0-alpha.1",
     "vue": "^2.5.11"
   },
   "devDependencies": {
