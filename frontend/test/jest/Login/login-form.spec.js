@@ -56,8 +56,9 @@ describe('Modules.vue', () => {
     expect(vm.errors.count()).toBe(0)
     expect(mutations.setError.mock.calls.length).toBe(0)
     login.trigger('click')
-    await expect(mutations.setError).toHaveBeenCalled()
-    expect(mutations.setError.mock.calls.length).toBe(1)
+    await flushPromises()
+    expect(mutations.setError).toHaveBeenCalled()
+    expect(mutations.setError.mock.calls.length).toBe(2)
     expect(vm.errors.items[0].field).toBe('email')
     expect(vm.errors.items[1].field).toBe('password')
     expect(vm.errors.count()).toBe(2)
@@ -72,8 +73,9 @@ describe('Modules.vue', () => {
     expect(mutations.setError.mock.calls.length).toBe(0)
     vm.form.password ="foobar"
     login.trigger('click')
-    await expect(mutations.setError).toHaveBeenCalled()
-    expect(mutations.setError.mock.calls.length).toBe(1)
+    await flushPromises()
+    expect(mutations.setError).toHaveBeenCalled()
+    expect(mutations.setError.mock.calls.length).toBe(2)
     expect(vm.errors.items[0].field).toBe('email')
     expect(vm.errors.count()).toBe(1)
   })
@@ -88,8 +90,11 @@ describe('Modules.vue', () => {
     vm.form.email = "kensei416@gmail.com"
     vm.form.password = ""
     login.trigger('click')
-    await expect(mutations.setError).toHaveBeenCalled()
-    expect(mutations.setError.mock.calls.length).toBe(1)
+    await flushPromises()
+    expect(mutations.setError).toHaveBeenCalled()
+    expect(mutations.setError.mock.calls.length).toBe(2)
+    
+
     expect(vm.errors.items[0].field).toBe('password')
     expect(vm.errors.count()).toBe(1)
   })
